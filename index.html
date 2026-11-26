@@ -358,642 +358,82 @@ ul.plain { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 
 <script>
-/* Banque d'idées, partie 1 : 57 posts (TikTok + Insta) et 21 stories. La suite est dans bank2.js.
-   Règle de fond : pieds toujours chaussés, vernis = mains uniquement, aucune mention de vente. */
+/* Banque d'idées, partie 1 : nouvelle ligne éditoriale « vendeuse de ieps ».
+   Public visé : la communauté des fans de ieps (les acheteurs potentiels), avec le vocabulaire de la niche.
+   Règles de fond : une partie des pieds seulement, jamais de visage, mots codés (ieps, fan2iep, acheteur2iep, vendeuse2iep),
+   aucun prix, aucun lien, aucune plateforme nommée. L'appel à l'action est toujours « écris-moi en message privé ».
+   Les idées sont courtes : une prise de 8 secondes, un texte accrocheur dès la première image. */
 
-var BANK = [
-  /* ---------- Transition (8) ---------- */
-  { f: "Transition", t: "Du jean à la soirée", h: "Lundi 9 h contre samedi 23 h",
-    s: ["Pose ton téléphone au sol contre un livre, cadre du genou au sol, et ne le touche plus.", "Filme 3 secondes en jean et baskets, puis passe ta main devant l'objectif.", "Change pour la jupe longue et les bottines, au même endroit, et filme 3 secondes en retirant ta main."],
-    c: "Même sol, autre humeur.", g: ["#transition", "#ootd", "#chaussures"], a: "Commente laquelle des deux tu choisis.", r: 0,
-    w: "Un avant/après donne une raison de regarder jusqu'au bout." },
-  { f: "Transition", t: "Cinq paires sur le beat", h: "5 paires, une seule gagne",
-    s: ["Choisis un son au rythme net (Centre de création TikTok, filtre France).", "Une paire par temps fort, même position, même cadre.", "Dernière paire plus longue, avec un chiffre de 1 à 5 à l'écran."],
-    c: "Mon classement change chaque semaine. Et le tien ?", g: ["#chaussures", "#fashiontok"], a: "Vote en commentaire : 1, 2, 3, 4 ou 5.", r: 0,
-    w: "Un vote en commentaire donne une action simple à faire." },
-  { f: "Transition", t: "Même tenue, quatre chaussettes", h: "Une tenue, quatre humeurs",
-    s: ["Pantalon retroussé et mocassins ou baskets, cadre bas.", "Quatre cuts : blanches, rayées, longues colorées, côtelées.", "Texte de deux mots par cut pour nommer l'humeur."],
-    c: "Les chaussettes font la tenue.", g: ["#chaussettes", "#stylecheck"], a: "Dis-moi quelle humeur tu es aujourd'hui.", r: 0,
-    w: "Quatre cuts rapides, une humeur par cut : facile à suivre." },
-  { f: "Transition", t: "Le sol raconte la semaine", h: "Où mes bottes sont allées cette semaine",
-    s: ["Quatre plans au sol avec la même paire : cuisine, rue, escalier, parking.", "Chaque plan dure 1 s, le lieu écrit en gros.", "Termine sur la paire posée près de la porte."],
-    c: "Elles ont tout vu.", g: ["#bottes", "#dayinmylife"], a: "Enregistre pour te souvenir du look.", r: 0,
-    w: "Un lieu par plan : on reste pour voir le suivant." },
-  { f: "Transition", t: "Le check du look", h: "Verdict sur la tenue du jour",
-    s: ["Plan à hauteur de ceinture, tenue complète, visage hors cadre.", "Descente lente de la caméra jusqu'aux chaussures.", "Retour rapide en haut sur un son qui claque, texte : « Verdict ? »"],
-    c: "Note-moi la tenue sur dix.", g: ["#ootd", "#lookdujour"], a: "Mets une note sur 10 en commentaire.", r: 0,
-    w: "Le retour rapide ajoute un moment à revoir." },
-  { f: "Transition", t: "La paire qui change tout", h: "Même tenue, seule la paire change",
-    s: ["Tenue noire posée ou portée, cadre identique à chaque plan.", "Quatre paires : baskets, mocassins, bottes, talons. 1,5 s chacune.", "Dernier plan : demande laquelle va le mieux pour le week-end."],
-    c: "Une paire, et tout le look bascule.", g: ["#stylisme", "#chaussures"], a: "Choisis ta paire pour samedi.", r: 0,
-    w: "Une seule variable qui change : lecture immédiate." },
-  { f: "Transition", t: "Entrée en scène", h: "Quand tu arrives et que tout le monde regarde le sol",
-    s: ["Plan bas devant une porte, bottes ou talons.", "La porte s'ouvre, trois pas lents sur le temps fort du son.", "Cut net vers un second plan : mêmes chaussures, autre lieu."],
-    c: "Toujours à l'heure. Presque.", g: ["#entree", "#fashiontok"], a: "Partage à l'ami(e) qui arrive toujours en dernier.", r: 0,
-    w: "Un geste simple, un rythme net, facile à boucler." },
-  { f: "Transition", t: "Le placard version honnête", h: "Mon placard à chaussures, désordre compris",
-    s: ["Porte fermée, plan fixe. Ouverture sur un temps fort.", "Panoramique lent sur les étagères, une paire par seconde.", "Dernier plan : une paire tombe doucement, texte : « Ça arrive »."],
-    c: "Il y a de l'ordre dans ce désordre.", g: ["#dressing", "#chaussures"], a: "Combien de paires dans le tien ?", r: 0,
-    w: "Une question de chiffre invite à répondre." },
-
-  /* ---------- Sketch (9) ---------- */
-  { f: "Sketch", t: "« Je rentre tôt ce soir »", h: "« Je rentre tôt. » Mes chaussures :",
-    s: ["Trois paires alignées devant la porte, sous-titres en bulles de pensée.", "Bulle 1 : « Elle a dit ça hier. » Bulle 2 : « Départ à 23 h. »", "Dernier plan : la porte se ferme, les talons ont disparu."],
-    c: "Elles me connaissent trop bien.", g: ["#humour", "#chaussures"], a: "Tague la personne qui dit toujours ça.", r: 0,
-    w: "Humour de situation : on pense tout de suite à quelqu'un à taguer." },
-  { f: "Sketch", t: "Cinq minutes, version réelle", h: "« J'arrive dans 5 minutes »",
-    s: ["Tas de chaussures au sol, minuteur « 5:00 » à l'écran.", "Accéléré : essayages en cuts rapides, le minuteur grimpe à 40:00.", "Fin : elle enfile la toute première paire essayée."],
-    c: "Je ne mens pas, je suis optimiste.", g: ["#relatable", "#humour"], a: "Envoie ça à ton amie qui fait pareil.", r: 0,
-    w: "Fin en boucle : la première paire revient." },
-  { f: "Sketch", t: "Chaussures trop petites", h: "Ce que je dis contre ce que je pense",
-    s: ["Écran partagé : « Je dis » à gauche, « Je pense » à droite.", "Pieds chaussés qui marchent normalement, textes qui se contredisent.", "Chute : « J'ai quand même acheté la deuxième paire. »"],
-    c: "Le confort, c'est pour les autres.", g: ["#relatable", "#shopping"], a: "Raconte ta pire erreur d'achat.", r: 0,
-    w: "Les récits personnels en commentaire prolongent la discussion." },
-  { f: "Sketch", t: "Hommage à une vieille paire", h: "Aujourd'hui, on dit adieu à une paire",
-    s: ["Baskets usées sur un coussin, musique solennelle.", "Texte : années de service, kilomètres, une tache de café.", "Poubelle, puis plan sur les neuves : « Elle aurait voulu ça. »"],
-    c: "Repose en paix, vieille paire blanche.", g: ["#humour", "#baskets"], a: "Quelle paire tu n'arrives pas à jeter ?", r: 0,
-    w: "Un ton solennel sur un sujet absurde : le contraste fait le gag." },
-  { f: "Sketch", t: "La flaque", h: "Elle a dit « ne saute pas »",
-    s: ["Bottes en caoutchouc devant une flaque, plan bas.", "Ralenti du saut, éclaboussure. Son qui claque au moment de l'impact.", "Retour à vitesse normale : texte « Aucun regret. »"],
-    c: "Il fallait le faire.", g: ["#ralenti", "#bottes"], a: "Ta dernière flaque, c'était quand ?", r: 0,
-    w: "Un moment court avec un seul geste, facile à boucler." },
-  { f: "Sketch", t: "Trois paires, trois caractères", h: "Dans mon entrée : la sérieuse, l'aventurière, la chaotique",
-    s: ["Trois paires en ligne : baskets, bottes, talons.", "Chacune a une phrase en bulle quand le cadre passe dessus.", "Fin : texte « Lequel de mes trois caractères sort ce soir ? »"],
-    c: "Chacune a son rôle.", g: ["#personnalite", "#chaussures"], a: "Dis-moi quelle paire te ressemble.", r: 0,
-    w: "Un test de personnalité donne une raison de répondre." },
-  { f: "Sketch", t: "Le glisseur en chaussettes", h: "Parquet + chaussettes = olympiade",
-    s: ["Plan large sur un couloir de parquet, chaussettes épaisses.", "Prise d'élan, glissade jusqu'au bout, cadrage à hauteur des genoux.", "Texte : « 9,8 / 10 pour la réception »."],
-    c: "Discipline reine de la maison.", g: ["#chaussettes", "#humour"], a: "Donne ta note sur 10.", r: 0,
-    w: "Jeu de notation : réaction facile et rapide." },
-  { f: "Sketch", t: "Premier rendez-vous", h: "Ce que chaque paire pense du premier rendez-vous",
-    s: ["Quatre paires sur un fond uni.", "Une bulle par paire, par exemple « Trop sage » ou « Trop habillée ».", "Dernier plan : celle qui est choisie, texte « Verdict »."],
-    c: "Les chaussures ont une opinion.", g: ["#humour", "#ootd"], a: "Laquelle tu mets pour un premier rendez-vous ?", r: 0,
-    w: "Question simple, réponse en un mot." },
-  { f: "Sketch", t: "Enquête chaussette", h: "Il manque une chaussette. Enquête.",
-    s: ["Musique de suspense, plan sur un tiroir ouvert, chaussette seule en gros plan.", "Trois suspects : le lave-linge, le chat, le canapé. Un plan chacun.", "Chute : la chaussette est dans la manche d'un pull."],
-    c: "L'affaire est classée.", g: ["#chaussettes", "#humour"], a: "Où retrouves-tu les tiennes ?", r: 0,
-    w: "Un mini-scénario avec une chute en fin de vidéo." },
-
-  /* ---------- Satisfaisant (7) ---------- */
-  { f: "Satisfaisant", t: "Déballage d'une paire neuve", h: "Le moment où on ouvre la boîte",
-    s: ["Plan fixe sur la boîte, papier de soie, ouverture lente.", "Sors la paire, fais-la tourner devant l'objectif sur 2 s.", "Pose-la à côté de ton ancienne paire pour comparer."],
-    c: "Un nouveau départ.", g: ["#unboxing", "#chaussures"], a: "Devine la marque en commentaire.", r: 0,
-    w: "Le déballage crée une attente : on reste pour l'ouverture." },
-  { f: "Satisfaisant", t: "Baskets : avant et après", h: "Elles étaient blanches un jour",
-    s: ["Plan fixe de la paire sale, sur une serviette.", "Nettoyage en accéléré : brosse, mousse, rinçage.", "Plan final de la paire propre, mêmes position et lumière."],
-    c: "Dix minutes, une nouvelle vie.", g: ["#satisfying", "#nettoyage"], a: "Enregistre pour tes baskets de ce week-end.", r: 0,
-    w: "Un avant/après satisfaisant donne une raison d'enregistrer la vidéo." },
-  { f: "Satisfaisant", t: "Le son des lacets", h: "Le bruit parfait des lacets",
-    s: ["Plan serré sur les lacets, lumière douce, micro proche.", "Serre chaque œillet, un à un, lentement.", "Termine par le nœud, un petit coup de doigt dessus."],
-    c: "Mets le son.", g: ["#asmr", "#lacets"], a: "Mets le son et dis-moi ce que tu entends.", r: 0,
-    w: "Le son est l'intérêt principal : on regarde pour l'entendre." },
-  { f: "Satisfaisant", t: "Mes pas sur quatre sols", h: "Quatre sols, quatre sons",
-    s: ["Plan bas, bottes ou baskets, quatre sols : carrelage, parquet, gravier, moquette.", "Trois pas par sol, micro près du sol.", "Un mot à l'écran pour chaque sol."],
-    c: "Le gravier gagne.", g: ["#asmr", "#sounds"], a: "Quel sol gagne selon toi ?", r: 0,
-    w: "Format sonore simple, facile à refaire chaque semaine." },
-  { f: "Satisfaisant", t: "Le rangement par couleur", h: "Je range tout par couleur",
-    s: ["Avant : tas de paires au sol. Après : étagère triée du clair au foncé.", "Accéléré, une paire à la fois, avec un son de pose sec.", "Dernier plan fixe de l'étagère terminée."],
-    c: "L'ordre, c'est une humeur.", g: ["#rangement", "#satisfying"], a: "Tu tries par couleur ou par usage ?", r: 0,
-    w: "Un avant/après de rangement se comprend vite et se revoit en boucle." },
-  { f: "Satisfaisant", t: "Cirage de bottes", h: "Des bottes qui retrouvent leur éclat",
-    s: ["Plan serré sur le cuir terne.", "Cirage, brossage, lustrage, en accéléré avec le son d'origine.", "Plan final avec reflet de lumière sur le cuir."],
-    c: "Le détail qui change tout.", g: ["#bottes", "#satisfying"], a: "Dis-moi ce que tu voudrais que je nettoie ensuite.", r: 0,
-    w: "La transformation est la récompense du dernier plan." },
-  { f: "Satisfaisant", t: "Colis mystère", h: "Je n'ai aucune idée de ce qu'il y a dedans",
-    s: ["Plan sur un colis fermé, un mot : « Mystère ».", "Ouverture lente, bruit de scotch, papier de soie.", "Reveal à 70 % de la vidéo, 3 s de réaction sans paroles."],
-    c: "Devine avant l'ouverture.", g: ["#unboxing", "#surprise"], a: "Écris ta réponse avant la fin de la vidéo.", r: 0,
-    w: "Une devinette placée au début donne une raison de rester." },
-
-  /* ---------- Classement (6) ---------- */
-  { f: "Classement", t: "Tier list de mes paires", h: "Je classe mes paires de S à D",
-    s: ["Grille S, A, B, C, D en bandes de couleur à l'écran.", "Une paire à la fois, tu la poses dans sa catégorie.", "Dernière paire : celle que tout le monde va contester."],
-    c: "Désaccord attendu.", g: ["#tierlist", "#chaussures"], a: "Dis laquelle tu aurais mise ailleurs.", r: 0,
-    w: "Un classement discutable invite à répondre." },
-  { f: "Classement", t: "Top 5 pour l'hiver", h: "Mon top 5 des chaussures d'hiver",
-    s: ["Cinq plans, du 5 au 1, chiffre en gros à l'écran.", "Deux secondes par paire, une phrase d'avis chacune.", "Numéro 1 : plan plus long, avec un détail précis."],
-    c: "Mon top 1 va peut-être te surprendre.", g: ["#top5", "#hiver"], a: "Enregistre pour ta prochaine paire.", r: 0,
-    w: "Une liste utile donne une raison d'enregistrer la vidéo." },
-  { f: "Classement", t: "Chaussettes, de la pire à la meilleure", h: "Les chaussettes : verdict sans pitié",
-    s: ["Quatre paires de chaussettes posées sur un fond uni.", "Tu les classes par confort, avec un mot d'explication.", "Fin : « La numéro 1 est inattendue »."],
-    c: "Le confort ne trompe pas.", g: ["#chaussettes", "#test"], a: "Donne ta marque préférée.", r: 0,
-    w: "Un avis tranché invite à répondre." },
-  { f: "Classement", t: "Ce que je rachète chaque année", h: "Les 3 achats que je recommence chaque saison",
-    s: ["Trois objets ou paires dans un panier.", "Un mot sur pourquoi pour chaque, 3 s chacun.", "Fin : « Et toi, c'est quoi ton achat récurrent ? »"],
-    c: "Mes faiblesses, assumées.", g: ["#shopping", "#habitudes"], a: "Réponds avec ton achat récurrent.", r: 0,
-    w: "Une question ouverte à la fin encourage à écrire une réponse." },
-  { f: "Classement", t: "Une paire pour chaque jour", h: "Ma paire préférée, jour par jour",
-    s: ["Sept cadres au sol, un par jour, texte « Lundi » à « Dimanche ».", "Une paire par jour, en une seconde chacune.", "Dernier plan : la paire qui revient trop souvent."],
-    c: "Le jeudi, c'est la même.", g: ["#semaine", "#ootd"], a: "Dis quelle paire tu portes le plus.", r: 0,
-    w: "Rythme régulier, cadre identique, simple à regarder en boucle." },
-  { f: "Classement", t: "Les achats inutiles", h: "Chaussures qu'on a toutes achetées pour rien",
-    s: ["Plan sur trois paires peu portées.", "Phrase d'excuse pour chaque : « Elles étaient en promo. »", "Fin : texte « Quelle est la tienne ? »"],
-    c: "Aucune honte.", g: ["#relatable", "#shopping"], a: "Avoue ta paire jamais portée.", r: 0,
-    w: "L'aveu partagé crée de la complicité." },
-
-  /* ---------- Vernis (6) : mains uniquement ---------- */
-  { f: "Vernis", t: "Nuancier de la semaine", h: "Mon nuancier du moment",
-    s: ["Cinq flacons alignés, mains avec les ongles posés sur une feuille blanche.", "Une nuance par temps fort, ongle appliqué en accéléré.", "Dernier plan : la préférée, mise en avant avec un texte."],
-    c: "Une couleur par humeur.", g: ["#vernis", "#nailtok"], a: "Vote pour la nuance de la semaine prochaine.", r: 0,
-    w: "Un nuancier se comprend d'un coup d'œil, et la question est simple." },
-  { f: "Vernis", t: "Le vernis qui va avec la tenue", h: "Mon vernis est assorti à mes chaussures",
-    s: ["Plan fixe sur une paire de chaussures et un flacon de la même couleur.", "Les mains prennent le flacon, ouvre-le, montre la nuance sur l'ongle.", "Dernier plan : chaussures, flacon et main alignés."],
-    c: "L'harmonie, c'est une obsession.", g: ["#vernis", "#assorti"], a: "Dis-moi la couleur que tu aimerais voir.", r: 0,
-    w: "Un accord de couleurs se juge d'un coup d'œil." },
-  { f: "Vernis", t: "Pose express", h: "Trente secondes pour un vernis parfait",
-    s: ["Mains posées sur un fond uni, lumière douce.", "Pose en accéléré, de la base au top coat.", "Dernier plan : les mains, mises en valeur avec un mouvement lent."],
-    c: "Pas de salon nécessaire.", g: ["#vernis", "#manucure"], a: "Enregistre pour ta prochaine pose.", r: 0,
-    w: "Un tutoriel court donne une raison d'enregistrer la vidéo." },
-  { f: "Vernis", t: "Le bruit du flacon", h: "Le bruit du flacon qu'on secoue",
-    s: ["Plan serré sur le flacon avec la bille à l'intérieur.", "Secoue lentement, micro proche.", "Ouvre le flacon, bruit de pinceau, pose sur une feuille de test."],
-    c: "Le détail qui rend heureuse.", g: ["#asmr", "#vernis"], a: "Mets le son pour entendre.", r: 0,
-    w: "Format sonore court, facile à refaire." },
-  { f: "Vernis", t: "Rouge, bordeaux ou nude", h: "Rouge, bordeaux ou nude ?",
-    s: ["Trois flacons alignés, trois mains avec trois couleurs.", "Chaque nuance dure 2 s, texte en gros avec le nom.", "Dernier plan : question « Laquelle pour ce week-end ? »"],
-    c: "Je ne sais pas choisir.", g: ["#vernis", "#nailtok"], a: "Vote avec 1, 2 ou 3.", r: 0,
-    w: "Un choix à trois donne une réponse très simple." },
-  { f: "Vernis", t: "Vernis de fêtes", h: "Trois nuances pour les fêtes",
-    s: ["Trois flacons pailletés, lumière chaude.", "Un ongle par nuance, rendu sous la lumière du sapin ou d'une guirlande.", "Dernier plan : ta préférée avec un texte."],
-    c: "La saison des paillettes.", g: ["#vernis", "#fetes"], a: "Dis ta nuance pour le réveillon.", r: 0,
-    w: "Un thème de saison colle à ce que les gens vivent en décembre." },
-
-  /* ---------- Routine (5) ---------- */
-  { f: "Routine", t: "Prépare-toi avec moi", h: "Je me prépare, on finit par les chaussures",
-    s: ["Cinq plans rapides : vêtement, sac, bijou, parfum, chaussures.", "Pas de visage : cadre taille et mains.", "Dernier plan : la paire choisie, en pied (cadre bas)."],
-    c: "La dernière étape est toujours la même.", g: ["#grwm", "#ootd"], a: "Dis-moi la dernière chose que tu mets.", r: 0,
-    w: "Un format de routine connu : chaque plan annonce le suivant." },
-  { f: "Routine", t: "Ma journée en cinq paires", h: "Ma journée, une paire à la fois",
-    s: ["Cinq paires dans la journée : matin, courses, travail, sortie, soir.", "Chaque paire dans son décor, 2 s par plan.", "Dernier plan : les cinq alignées devant la porte."],
-    c: "Cinq vies en une journée.", g: ["#dayinmylife", "#chaussures"], a: "Combien de paires tu portes par jour ?", r: 0,
-    w: "Un format de routine connu, facile à tourner en cinq plans." },
-  { f: "Routine", t: "Dans mon sac", h: "Ce que j'ai dans mon sac aujourd'hui",
-    s: ["Sac ouvert sur une table, plan fixe du dessus.", "Sors chaque objet, nomme-le en texte.", "Dernier objet : une paire de chaussettes de rechange."],
-    c: "Toujours une paire de rechange.", g: ["#inmybag", "#routine"], a: "Dis ce qu'il y a toujours dans le tien.", r: 0,
-    w: "Format simple, la question finale lance les réponses." },
-  { f: "Routine", t: "Le rituel du dimanche", h: "Je prépare mes chaussures de la semaine",
-    s: ["Cinq paires alignées, lundi à vendredi, chacune avec une étiquette.", "Nettoyage express d'une paire, rangement d'une autre.", "Dernier plan : l'étagère prête pour la semaine."],
-    c: "Dimanche soir, mon moment calme.", g: ["#sundayreset", "#routine"], a: "Quel est ton rituel du dimanche ?", r: 0,
-    w: "Un rituel calme, répétable chaque semaine." },
-  { f: "Routine", t: "Courses du samedi", h: "Mes courses du samedi en 15 secondes",
-    s: ["Plan bas : baskets, trottoir, entrée du magasin.", "Trois plans rapides : rayon, caisse, retour.", "Dernier plan : sacs posés près de la porte."],
-    c: "Un samedi comme un autre.", g: ["#dayinmylife", "#courses"], a: "Dis ce que tu achètes toujours en premier.", r: 0,
-    w: "15 secondes : court, facile à regarder en entier." },
-
-  /* ---------- Défi (5) ---------- */
-  { f: "Défi", t: "Dix secondes pour choisir", h: "10 secondes pour choisir ma paire",
-    s: ["Minuteur de 10 s à l'écran, quatre paires devant.", "Tu enfiles la première qui te vient, sans réfléchir.", "Fin : texte « Pas de regret ? »"],
-    c: "Mon cerveau a perdu contre le minuteur.", g: ["#defi", "#chaussures"], a: "Propose-moi un défi pour demain.", r: 0,
-    w: "Un minuteur ajoute de la tension et de la lisibilité." },
-  { f: "Défi", t: "Trois jours, une seule tenue", h: "Même pantalon, trois paires différentes",
-    s: ["Jour 1, 2, 3 : même pantalon, une paire différente chaque jour.", "Trois plans de 2 s en fin de journée.", "Dernier plan : « Laquelle m'allait le mieux ? »"],
-    c: "Un défi qui se joue sur un détail.", g: ["#defi", "#stylisme"], a: "Vote pour la paire gagnante.", r: 0,
-    w: "Un défi sur plusieurs jours donne une raison de suivre le compte." },
-  { f: "Défi", t: "Tu choisis, je porte", h: "Vous votez, je m'habille",
-    s: ["Poste le sondage en story la veille (voir la story du jour).", "Plan de la tenue choisie, texte « Vous avez voté »", "Dernier plan : réaction, mains seulement, pas de visage."],
-    c: "Je fais ce que vous décidez.", g: ["#communaute", "#ootd"], a: "Dis ce que je dois porter demain.", r: 0,
-    w: "Le public décide, donc il a une raison de revenir voir le résultat." },
-  { f: "Défi", t: "24 heures en chaussettes", h: "Je passe 24 h en chaussettes",
-    s: ["Plans courts à chaque moment de la journée : matin, cuisine, salon, soir.", "Chaussettes différentes, cadre large, jamais de gros plan insistant.", "Dernier plan : le tiroir de chaussettes, presque vide."],
-    c: "Le défi le plus doux.", g: ["#chaussettes", "#defi"], a: "Dis-moi ta paire préférée à la maison.", r: 0,
-    w: "Un défi en plusieurs plans, doux et facile à tourner." },
-  { f: "Défi", t: "Le nœud en cinq secondes", h: "Je fais un nœud de lacet en 5 secondes",
-    s: ["Minuteur à l'écran, plan serré sur les lacets.", "Nœud classique, sans accélérer, sur le tempo.", "Fin : le temps réel s'affiche, avec un mot d'humour."],
-    c: "Les doigts les plus rapides du quartier.", g: ["#defi", "#lacets"], a: "Dis ton record.", r: 0,
-    w: "Un chrono est un défi qu'on veut relever." },
-
-  /* ---------- Réponse (6) ---------- */
-  { f: "Réponse", t: "Réponse à « pointure ? »", h: "Oui, je vois la question",
-    s: ["Réponds à un commentaire avec la fonction réponse vidéo.", "Plan sur une boîte à chaussures avec une étiquette cachée par un autocollant.", "Retire l'autocollant en un geste : l'étiquette est vide."],
-    c: "Vous me posez tous la même question.", g: ["#humour", "#reponse"], a: "Dis-moi la taille de ta paire préférée.", r: 1,
-    w: "Une réponse à un commentaire récurrent : le sujet est déjà là." },
-  { f: "Réponse", t: "« Tu portes ça tous les jours ? »", h: "Réponse à : tu portes ça tous les jours ?",
-    s: ["Réponse vidéo à un commentaire.", "Trois paires du quotidien, une phrase pour chaque.", "Dernier plan : la paire qu'on ne porte jamais, avec humour."],
-    c: "Une vraie réponse, enfin.", g: ["#reponse", "#chaussures"], a: "Pose-moi une autre question.", r: 0,
-    w: "Une réponse rappelle aux gens qu'ils peuvent commenter." },
-  { f: "Réponse", t: "« Ça fait pas mal, les talons ? »", h: "Comment tenir toute une soirée sur des talons",
-    s: ["Réponse vidéo à la question.", "Trois conseils en texte : semelle gel, taille juste, pause toutes les heures.", "Dernier plan : les talons posés sur la table, fin de soirée."],
-    c: "Mes conseils, sans filtre.", g: ["#conseils", "#talons"], a: "Enregistre pour ta prochaine soirée.", r: 0,
-    w: "Un conseil pratique donne une raison d'enregistrer la vidéo." },
-  { f: "Réponse", t: "Où je trouve mes chaussures", h: "Réponse à : où tu achètes ça ?",
-    s: ["Réponse vidéo à un commentaire.", "Quatre sources : marque, friperie, occasion, soldes (sans lien).", "Dernier plan : une pépite de friperie en plan serré."],
-    c: "Le secret, c'est de chercher longtemps.", g: ["#friperie", "#shopping"], a: "Dis-moi ta meilleure trouvaille.", r: 0,
-    w: "Un contenu pratique qui apporte de la valeur." },
-  { f: "Réponse", t: "Vos commentaires les plus drôles", h: "Les commentaires qui m'ont fait rire cette semaine",
-    s: ["Écran partagé : le commentaire en haut, ta réaction en bas (mains, pas de visage).", "Trois commentaires de 4 s chacun, sans pseudo visible.", "Dernier plan : « Vous êtes incroyables »."],
-    c: "Vous méritez un merci.", g: ["#communaute", "#commentaires"], a: "Écris le commentaire de la semaine prochaine.", r: 1,
-    w: "Mettre un commentaire en avant donne envie d'en écrire un." },
-  { f: "Réponse", t: "Tu me demandes, je fais", h: "Vous avez demandé cette tenue",
-    s: ["Réponse vidéo à une demande de tenue ou de couleur.", "Réalise la demande en un plan fixe, 5 s maximum.", "Dernier plan : « La prochaine demande ? »"],
-    c: "Vous demandez, j'écoute.", g: ["#communaute", "#demande"], a: "Écris ta demande de tenue en commentaire.", r: 1,
-    w: "Une demande publique relance la boucle de commentaires." },
-
-  /* ---------- Vote (5) ---------- */
-  { f: "Vote", t: "Chaussettes et sandales", h: "Hot take : chaussettes avec sandales, oui",
-    s: ["Plan bas, sandales avec chaussettes épaisses, fond uni.", "Texte « Je ne changerai pas d'avis ».", "Réponds à un commentaire avec la même paire."],
-    c: "Je défends ce look.", g: ["#hottake", "#mode"], a: "Team oui ou team non ?", r: 0,
-    w: "Un avis clivant mais léger : il invite à répondre." },
-  { f: "Vote", t: "Baskets contre talons", h: "Team baskets ou team talons ?",
-    s: ["Écran partagé : baskets à gauche, talons à droite.", "Chaque côté fait la même action : marcher, monter une marche.", "Fin : texte « Résultat dans le prochain post »."],
-    c: "Il faut choisir un camp.", g: ["#teambaskets", "#teamtalons"], a: "Choisis ton camp en un mot.", r: 0,
-    w: "Un choix binaire donne une réponse en un mot." },
-  { f: "Vote", t: "Je ne changerai pas d'avis", h: "Les chaussettes blanches sont les meilleures",
-    s: ["Plan sur trois couleurs de chaussettes.", "Texte d'affirmation, sans explication.", "Réponds à un commentaire contradictoire avec la même chaussette."],
-    c: "Mon avis est définitif.", g: ["#hottake", "#chaussettes"], a: "Convaincs-moi du contraire.", r: 0,
-    w: "L'opinion tranchée invite les contradicteurs à commenter." },
-  { f: "Vote", t: "Quelle paire es-tu ?", h: "Choisis une paire, je te dis qui tu es",
-    s: ["Quatre paires numérotées de 1 à 4.", "Pour chaque numéro, un portrait en deux phrases.", "Dernier plan : « Réponds avec ton chiffre »."],
-    c: "Test 100 % sérieux.", g: ["#test", "#personnalite"], a: "Réponds avec ton chiffre.", r: 0,
-    w: "Un test simple : la réponse tient en un chiffre." },
-  { f: "Vote", t: "Ce que dit ta pointure", h: "Ce que ta pointure dit de toi (non scientifique)",
-    s: ["Cinq cartons : 36, 37, 38, 39, 40 et plus.", "Un mot d'humour pour chaque taille.", "Fin : texte « Je ne réponds pas pour la mienne »."],
-    c: "Preuve que je n'ai aucune science.", g: ["#humour", "#test"], a: "Écris ta taille de chaussures.", r: 1,
-    w: "Une pointure se répond en un mot, rapidement." }
-];
-
-/* Story du jour : un type par jour de la semaine (0 = dimanche), 3 variantes qui tournent chaque semaine. */
-var STORIES = {
-  1: { type: "Paysage", label: "Vrai compte", why: "Une story sans chaussures rend le compte plus naturel.",
-    v: [
-      { t: "Un coin de ciel ou de rue", s: "Photo d'un paysage, d'une fenêtre ou d'un café. Aucune chaussure. Une ligne de texte : l'heure et l'humeur.", cta: "Aucun appel à l'action aujourd'hui." },
-      { t: "Vue du trajet", s: "Vidéo de 5 s depuis un trajet : route, rue, métro ou voiture. Pas de chaussures. Un son d'ambiance naturel.", cta: "Aucun appel à l'action aujourd'hui." },
-      { t: "Pause du lundi", s: "Photo d'une boisson, d'un livre ou d'un écran sur une table. Une phrase de lundi, sobre.", cta: "Aucun appel à l'action aujourd'hui." }
-    ] },
-  2: { type: "Appel à l'action", label: "Story CTA", why: "Ces interactions disent à Instagram que le compte vaut la peine d'être montré.",
-    v: [
-      { t: "Boîte à questions", s: "Photo de deux paires de chaussures au sol, sticker « Pose-moi une question » avec le texte : « Une question sur les chaussures ? »", cta: "Sticker question, plus le texte « Écris-moi en message ». Réponds à trois questions en story demain." },
-      { t: "Sondage A ou B", s: "Deux paires côte à côte, sticker sondage avec « A » et « B ». Texte : « Laquelle pour samedi ? »", cta: "Sticker sondage, plus le texte « Écris-moi ton choix en message ». Utilise le résultat dans le post de samedi." },
-      { t: "Curseur d'humeur", s: "Photo d'une paire seule, sticker curseur emoji avec le texte : « Combien tu l'aimes ? »", cta: "Sticker curseur, plus le texte « Dis-moi pourquoi en message ». Garde les résultats pour une réponse en story." }
-    ] },
-  3: { type: "Tenue du jour", label: "Tenue", why: "Régularité du style, sans rien montrer d'autre que les chaussures.",
-    v: [
-      { t: "Cadre taille et sol", s: "Photo de la tenue du jour du genou au sol, chaussures comprises. Sticker musique.", cta: "Sticker « Ajoute le tien » si la tenue s'y prête." },
-      { t: "Boomerang du seuil", s: "Boomerang de la paire du jour, devant la porte. Texte : « Aujourd'hui, c'est elle. »", cta: "Demande en texte : « Vous l'auriez choisie ? »" },
-      { t: "Matin, midi, soir", s: "Trois slides : chaussures du matin, du midi, du soir. Un mot par slide.", cta: "Demande quelle slide est la préférée." }
-    ] },
-  4: { type: "Vernis", label: "Vernis", why: "Le vernis garde la ligne éditoriale en restant sur les mains.",
-    v: [
-      { t: "Nuancier en story", s: "Mains avec trois nuances sur les ongles, posées sur une feuille blanche. Sondage à trois choix.", cta: "Sondage : quelle couleur pour la semaine prochaine ?" },
-      { t: "Flacon du jour", s: "Photo du flacon utilisé aujourd'hui, avec le nom de la teinte écrit à la main.", cta: "Question : « Une couleur à tester ? »" },
-      { t: "Quiz couleur", s: "Photo d'une tenue, sticker quiz : « Quel vernis irait avec ? » Trois réponses possibles.", cta: "Sticker quiz. Poste la bonne réponse le lendemain." }
-    ] },
-  5: { type: "Coulisses", label: "Coulisses", why: "Les coulisses donnent un ton personnel et préparent le week-end.",
-    v: [
-      { t: "Le plateau", s: "Photo du coin de tournage : lumière, fond, accessoires. Aucun pied visible. Texte : « Demain, un nouveau tournage. »", cta: "Sticker compte à rebours vers le prochain post." },
-      { t: "Le tri des paires", s: "Photo d'une pile de boîtes à chaussures. Texte : « Choisir la paire du week-end, difficile. »", cta: "Sondage : quelle paire pour samedi ?" },
-      { t: "Matériel et accessoires", s: "Photo des accessoires du tournage : plaid, miroir, bougie, fond. Texte : « Une partie du décor. »", cta: "Question : « Quel décor vous voulez voir ? »" }
-    ] },
-  6: { type: "Repartage", label: "Repartage", why: "Repartager le meilleur post de la semaine renforce sa portée.",
-    v: [
-      { t: "Le post de la semaine", s: "Repartage en story du post qui a le mieux marché, avec le sticker « Nouveau post ». Texte : « Votre préféré de la semaine ? »", cta: "Sticker question : « Votre préféré ? »" },
-      { t: "Résumé en trois slides", s: "Trois captures des trois posts de la semaine, un mot chacune.", cta: "Sondage : « Lequel refaire ? »" },
-      { t: "Merci et demande", s: "Slide de remerciement avec une question : « Que voulez-vous voir cette semaine ? »", cta: "Sticker question. Note les idées pour le prochain tournage." }
-    ] },
-  0: { type: "Dimanche cosy", label: "Cosy", why: "Une ambiance calme, régulière, qui fait revenir chaque semaine.",
-    v: [
-      { t: "Plaid et thé", s: "Photo d'un plaid, d'une tasse, d'une bougie. Les chaussettes peuvent apparaître, en plan large seulement.", cta: "Sticker emoji curseur : « Votre ambiance de dimanche ? »" },
-      { t: "Préparer la semaine", s: "Photo de cinq paires alignées pour la semaine. Texte : « La semaine est prête. »", cta: "Sondage : « Quelle paire ouvre la semaine ? »" },
-      { t: "Playlist du dimanche", s: "Capture ou photo d'un fond calme, sticker musique avec ton morceau du dimanche.", cta: "Question : « Votre son du dimanche ? »" }
-    ] }
+/* ---------- Poses très simples (rien de plus que marcher, se frotter les pieds, faire du vernis…) ---------- */
+var POSES = {
+  marche: {
+    what: "tes pieds (nus ou en chaussettes) et un sol dégagé : parquet, carrelage ou tapis",
+    action: "avance lentement de trois pas vers l'objectif, puis recule. On voit le bas de la jambe jusqu'au sol, pas plus haut que le mollet",
+    m: ["Un sol dégagé (parquet, carrelage ou tapis)", "Un livre pour caler le téléphone"],
+    s: ["Pose : marcher lentement vers la caméra, du mollet au sol.", "Le texte est à l'écran dès la première image.", "Elle ressort du cadre en marchant."]
+  },
+  frotter: {
+    what: "un canapé ou un lit, un plaid uni (crème ou bordeaux si tu en as), tes pieds posés dessus",
+    action: "frotte lentement un pied contre l'autre. Cadre serré sur les pieds et les chevilles",
+    m: ["Un canapé ou un lit", "Un plaid uni, crème ou bordeaux de préférence", "Un livre pour caler le téléphone"],
+    s: ["Pose : s'asseoir, frotter lentement un pied contre l'autre.", "Cadre serré sur les pieds et les chevilles.", "Le texte est à l'écran dès la première image."]
+  },
+  vernis: {
+    what: "un flacon de vernis (rouge, bordeaux ou doré), du coton, un plaid ou une serviette claire sous le pied",
+    action: "passe une couche de vernis sur un ongle de pied, lentement, en gros plan. Ton visage ne doit jamais apparaître",
+    m: ["Un flacon de vernis rouge, bordeaux ou doré", "Du coton ou un mouchoir", "Un plaid ou une serviette claire sous le pied"],
+    s: ["Pose : passer le vernis sur un ongle, en gros plan.", "Le flacon reste visible à côté.", "Le texte est à l'écran dès la première image."]
+  },
+  canape: {
+    what: "un canapé ou un lit, une lampe à lumière chaude ou une guirlande lumineuse",
+    action: "croise les pieds sur l'accoudoir ou le bord du lit, puis décroise-les lentement, une seule fois. Cadre serré sur les chevilles et les pieds",
+    m: ["Un canapé ou un lit", "Une lampe chaude ou une guirlande"],
+    s: ["Pose : pieds croisés, puis décroisés lentement.", "Lumière chaude, cadre serré.", "Le texte est à l'écran dès la première image."]
+  },
+  creme: {
+    what: "une crème hydratante ou une huile, une serviette claire",
+    action: "applique une noisette de crème sur le dessus d'un pied, geste lent. Cadre serré, sans visage",
+    m: ["Une crème hydratante ou une huile", "Une serviette claire"],
+    s: ["Pose : crème sur le dessus du pied, geste lent.", "Serviette claire en fond.", "Le texte est à l'écran dès la première image."]
+  },
+  chaussettes: {
+    what: "une paire de chaussettes à motif (Noël, rayures ou couleurs), un plaid ou un tapis uni",
+    action: "enfile lentement une chaussette sur un pied. L'autre pied reste à côté. Cadre serré",
+    m: ["Une paire de chaussettes à motif", "Un plaid ou un tapis uni"],
+    s: ["Pose : enfiler une chaussette lentement.", "L'autre pied reste à côté, cadre serré.", "Le texte est à l'écran dès la première image."]
+  },
+  guirlande: {
+    what: "une guirlande lumineuse allumée en arrière-plan, un plaid ou un drap crème",
+    action: "pose un pied au premier plan et bouge à peine les orteils. La guirlande reste floue derrière",
+    m: ["Une guirlande lumineuse", "Un plaid ou un drap crème"],
+    s: ["Pose : un pied au premier plan, la guirlande floue derrière.", "Lumière chaude, mouvement minimal.", "Le texte est à l'écran dès la première image."]
+  },
+  lit: {
+    what: "le bord d'un lit assez haut, assise, jambes dans le vide",
+    action: "balance doucement les pieds dans le vide. Cadre serré du mollet jusqu'aux pieds",
+    m: ["Un lit assez haut", "Un livre pour caler le téléphone"],
+    s: ["Pose : pieds qui se balancent doucement dans le vide.", "Cadre serré du mollet aux pieds.", "Le texte est à l'écran dès la première image."]
+  },
+  talons: {
+    what: "une paire de talons (bordeaux ou noirs), un sol uni ou un tapis",
+    action: "retire un talon, pose-le à côté du pied, geste lent. Cadre serré",
+    m: ["Une paire de talons", "Un sol uni ou un tapis"],
+    s: ["Pose : retirer un talon et le poser à côté.", "Geste lent, cadre serré.", "Le texte est à l'écran dès la première image."]
+  },
+  reveil: {
+    what: "un réveil ou un deuxième téléphone qui affiche 23:59, posé près de ton pied",
+    action: "pose un pied à côté du réveil. Il passe à 00:00 pendant la prise",
+    m: ["Un réveil ou un deuxième téléphone", "Un plaid ou un tapis"],
+    s: ["Pose : un pied à côté d'un réveil qui passe à minuit.", "Le chiffre doit rester lisible.", "Le texte est à l'écran dès la première image."]
+  }
 };
 
-var RULES = [
-  { t: "Pieds toujours chaussés", d: "Chaussures, chaussettes ou collants opaques. Jamais de pieds nus, jamais de gros plan insistant sur la plante." },
-  { t: "Le vernis, c'est pour les mains", d: "Ongles des mains, flacons, nuanciers. Pas d'orteils vernis à l'image." },
-  { t: "Pas un mot sur la vente", d: "Ni prix, ni contenu payant, ni contenu privé, dans la vidéo, la légende, les commentaires et les stories." },
-  { t: "Le double sens reste dans le texte", d: "Aucun geste, aucune pose, aucune musique à connotation sexuelle. Aucun mot explicite à l'écran ni dans la légende. La chute est absurde, jamais suggestive." },
-  { t: "Insta seulement, c'est Insta seulement", d: "Un post marqué « Insta seulement » ne va jamais sur TikTok. Un post marqué « TikTok + Insta » peut aller sur les deux." },
-  { t: "Inviter à écrire, sans rediriger", d: "L'appel à l'action invite à écrire un message. Ne cite jamais un autre site ou un lien, ni dans la vidéo, ni dans la légende. Les messages reçus sont pour Timothée : ne réponds pas." },
-  { t: "Commentaires sous contrôle", d: "Épingle un commentaire neutre, supprime les messages explicites, ne réponds pas aux demandes de contenu : dis-les-lui." },
-  { t: "Vidéo supprimée, vidéo perdue", d: "Ne la reposte jamais telle quelle. Préviens-le, il vérifiera le compte." }
-];
-
-var TIPS = [
-  "Écris l'accroche à l'écran dès la première image.",
-  "Vise 7 à 15 secondes : assez court pour être regardé en entier, ou revu.",
-  "Termine sur un plan qui rappelle le premier, pour que la boucle passe inaperçue.",
-  "Pose une question simple à la fin : un chiffre, un choix, un mot."
-];
-
-/* Lot 2 : nouveaux formats (TikTok + Insta), idées « Insta seulement », dates spéciales, invitations en message.
-   p = "tt" : peut aller sur TikTok et Instagram. p = "ig" : Instagram seulement.
-   Règle de fond inchangée : pieds toujours chaussés, vernis = mains uniquement, aucune mention de vente, aucun mot explicite. */
-
-/* ---------- Nouveaux formats : TikTok + Insta ---------- */
-BANK.push(
-  { f: "Satisfaisant", t: "Le détail que personne ne remarque", h: "Personne ne remarquera ce détail…",
-    s: ["Plan large du genou au sol, tenue complète, cadre fixe.", "Zoom lent sur un détail : une couture, une boucle, une fermeture.", "Termine sur le gros plan, texte « Maintenant, vous ne verrez plus que ça »."],
-    c: "Le détail, c'est tout.", g: ["#detail", "#mode", "#chaussures"], a: "Dis quel détail tu remarques en premier.", r: 0,
-    w: "Un zoom lent donne une raison de regarder jusqu'à la fin." },
-  { f: "Satisfaisant", t: "Le test de symétrie", h: "Ça te dérange aussi ?",
-    s: ["Deux chaussures alignées au millimètre, plan fixe à hauteur du sol.", "L'une se décale de deux centimètres sur un bruit sec.", "Une main la remet en place, texte « Mieux »."],
-    c: "Il fallait corriger ça.", g: ["#satisfying", "#asmr", "#chaussures"], a: "Écris « ça me perturbe » si toi aussi.", r: 0,
-    w: "Un petit défaut corrigé : on reste pour voir la correction." },
-  { f: "Satisfaisant", t: "Alignement sur le beat", h: "J'ai refait cette vidéo 14 fois",
-    s: ["Plan zénithal : chaussures en désordre sur un sol clair.", "À chaque temps fort, une paire se place d'un coup (cuts image par image).", "Dernier plan : tout est aligné, texte « Quatorzième prise »."],
-    c: "Elle était presque parfaite.", g: ["#satisfying", "#chaussures"], a: "Combien de prises tu aurais faites ?", r: 0,
-    w: "Rythme et ordre : on regarde la fin pour voir tout aligné." },
-  { f: "Sketch", t: "La caméra qui tombe", h: "Je voulais juste montrer mes chaussures",
-    s: ["Cadre fixe sur une paire, sous-titre très sérieux.", "La caméra bascule d'un coup, image floue, mouvement vif.", "Elle se recompose sur une autre paire, texte « Bon, vous avez tout vu »."],
-    c: "Ça ne s'est pas passé comme prévu.", g: ["#humour", "#fail", "#chaussures"], a: "Dis laquelle des deux tu préfères.", r: 0,
-    w: "Un faux accident bien monté : le gag tient en trois secondes." },
-  { f: "Sketch", t: "Le jury a délibéré", h: "Elle a demandé si ça lui allait. Le jury est formel.",
-    s: ["Paire présentée sous une lumière dramatique, silence.", "Trois cartons de notes levés par des mains hors cadre : 10, 10, 10.", "Texte final : « Le jury a délibéré »."],
-    c: "Décision sans appel.", g: ["#humour", "#jury", "#ootd"], a: "Donne ta note sur 10.", r: 0,
-    w: "Un jeu de notation : la réponse tient en un chiffre." },
-  { f: "Sketch", t: "Contrôle qualité", h: "Contrôle qualité de la paire du jour",
-    s: ["Paire sur fond blanc, une loupe tenue à la main.", "Règle posée à côté, lumière de laboratoire, zoom sur une couture.", "Tampon « VALIDÉ » en gros sur le dernier plan."],
-    c: "Validée à l'unanimité.", g: ["#humour", "#qualite", "#chaussures"], a: "Quelle paire tu validerais ?", r: 0,
-    w: "Un décor de laboratoire pour un sujet léger : le contraste fait sourire." },
-  { f: "Sketch", t: "Le rangement parfait", h: "Aujourd'hui, je range tout",
-    s: ["Chaussures en désordre, minuteur de 10 secondes à l'écran.", "Rangement en accéléré, symétrie parfaite.", "Une paire neuve entre dans le cadre et casse tout, texte « On recommence demain »."],
-    c: "Le rangement, c'est surfait.", g: ["#humour", "#rangement", "#chaussures"], a: "Quelle est ta pire pile de chaussures ?", r: 0,
-    w: "Un ordre parfait puis un désordre : le contraste fait le gag." },
-  { f: "Transition", t: "La musique choisit la tenue", h: "Si la musique change, la tenue change",
-    s: ["Son doux : tenue décontractée, cadre fixe du genou au sol.", "Au changement de rythme, cut net sur un claquement de doigts.", "Même cadre, tenue habillée et talons. Garde 1 s de pause."],
-    c: "La playlist décide.", g: ["#transition", "#ootd"], a: "Dis quelle musique irait avec ta tenue.", r: 0,
-    w: "Un changement de son annonce le cut : facile à suivre." },
-  { f: "Routine", t: "La paire oubliée", h: "Celle qu'on oublie au fond du placard",
-    s: ["Boîte poussiéreuse au fond du placard, plan fixe.", "Elle est sortie et dépoussiérée d'un geste.", "Elle devient la pièce centrale d'une tenue complète."],
-    c: "Elle méritait une seconde chance.", g: ["#dressing", "#chaussures"], a: "Quelle paire est oubliée chez toi ?", r: 0,
-    w: "Un petit récit en trois temps, avec une fin heureuse." },
-  { f: "Vote", t: "Noir ou couleur ?", h: "Chaussures noires ou colorées : il faut choisir",
-    s: ["Deux paires : noires à gauche, colorées à droite, même cadre.", "Même tenue pour les deux, deux plans de 3 s.", "Texte final : « 1 ou 2 ? »"],
-    c: "Le noir va avec tout. Ou pas.", g: ["#noir", "#couleur", "#ootd"], a: "Réponds 1 ou 2.", r: 0,
-    w: "Un choix qui se répond en un chiffre." },
-  { f: "Réponse", t: "« Tu t'habilles pour qui ? »", h: "« Tu t'habilles pour qui ? » Pour moi.",
-    s: ["Réponse vidéo à une question reçue sur la tenue.", "Plan taille-chaussures, tenue complète, mouvement lent.", "Texte final : « Pour moi, évidemment »."],
-    c: "Question reçue, réponse donnée.", g: ["#reponse", "#confiance", "#ootd"], a: "Et toi, tu t'habilles pour qui ?", r: 1,
-    w: "Une question reprise de la communauté relance les commentaires." }
-);
-
-/* ---------- Double sens léger : Instagram seulement ----------
-   Principe : une phrase qui semble annoncer quelque chose, puis une chute absurde et exagérée. Le sous-entendu reste dans la tête de celui qui regarde.
-   Jamais de mot explicite, jamais de geste ou de pose suggestive, jamais de visage. */
-BANK.push(
-  { f: "Double sens", p: "ig", t: "Tu as vu ce que je t'ai envoyé ?", h: "« Elle : Tu as vu ce que je t'ai envoyé ? »",
-    s: ["Plan 1 : téléphone posé sur un plaid, écran noir, ambiance sérieuse.", "Plan 2 : zoom dramatique sur le téléphone, son de suspense, l'écran n'est jamais visible.", "Plan 3 : plan absurde, une paire de bottes sur un piédestal, projecteur, applaudissements."],
-    c: "Je crois qu'il a vu.", g: ["#humour", "#couple", "#chaussures"], a: "Dis ce qu'il a répondu.", r: 1,
-    w: "Une phrase ambiguë puis une chute absurde : le doute fait réagir." },
-  { f: "Double sens", p: "ig", t: "Tu peux attendre encore un peu ?", h: "« Elle : Tu peux attendre encore un peu ? »",
-    s: ["Plan 1 : minuteur à 10 secondes, plan fixe.", "Plan 2 : accéléré, le minuteur tourne trop vite.", "Plan 3 : un calendrier défile jusqu'à 2032, texte « Aucun problème »."],
-    c: "Il est très patient.", g: ["#humour", "#couple", "#attente"], a: "Combien de temps tu attendrais ?", r: 1,
-    w: "Une attente exagérée : le contraste fait le gag." },
-  { f: "Double sens", p: "ig", t: "Une petite surprise", h: "« Elle : J'ai une petite surprise pour toi. »",
-    s: ["Plan 1 : boîte fermée sur une table, lumière douce.", "Plan 2 : ouverture au ralenti, musique qui monte.", "Plan 3 : une paire de chaussettes sur un coussin, présentée comme un diamant."],
-    c: "Il ne s'y attendait pas.", g: ["#humour", "#surprise", "#chaussettes"], a: "Ta plus belle surprise ?", r: 1,
-    w: "Une attente construite puis un objet banal traité en trésor." },
-  { f: "Double sens", p: "ig", t: "Tu me fais confiance ?", h: "« Elle : Tu me fais confiance ? »",
-    s: ["Plan 1 : une main pose une chaussure sur la table.", "Plan 2 : une deuxième, puis une troisième, de plus en plus vite.", "Plan 3 : les boîtes à chaussures envahissent tout le cadre."],
-    c: "Peut-être un peu trop.", g: ["#humour", "#couple", "#chaussures"], a: "Tu lui aurais dit oui ?", r: 1,
-    w: "Une accumulation qui s'emballe : on veut voir jusqu'où ça va." },
-  { f: "Double sens", p: "ig", t: "Promets de ne rien dire", h: "« Elle : Promets-moi de ne le dire à personne. »",
-    s: ["Plan 1 : un tiroir fermé, plan fixe, musique mystérieuse.", "Plan 2 : ouverture lente du tiroir.", "Plan 3 : vingt-sept paires identiques, texte « Ton secret est bien gardé »."],
-    c: "Chut.", g: ["#humour", "#secret", "#chaussures"], a: "Quel est ton secret de placard ?", r: 1,
-    w: "Un faux grand secret avec une chute banale." },
-  { f: "Double sens", p: "ig", t: "Cinq secondes pour répondre", h: "« Elle : Tu as cinq secondes pour répondre. »",
-    s: ["Plan 1 : compte à rebours de 5 à 1 à l'écran, deux paires en gros plan.", "Plan 2 : zoom nerveux de l'une à l'autre.", "Plan 3 : écran noir, texte « Game over »."],
-    c: "Il n'y avait pas de bonne réponse.", g: ["#humour", "#couple", "#chaussures"], a: "Tu aurais choisi laquelle ?", r: 1,
-    w: "Un compte à rebours donne un rythme et une question à trancher." },
-  { f: "Double sens", p: "ig", t: "Ma dernière story", h: "« Elle : J'espère que tu as vu ma dernière story. »",
-    s: ["Plan 1 : un téléphone avec une story fictive de chaussures (écran flouté).", "Plan 2 : retour en arrière, zoom, retour en arrière.", "Plan 3 : un tableau d'enquête rempli de post-its et de ficelle."],
-    c: "Analyse approfondie.", g: ["#humour", "#story", "#enquete"], a: "Combien de fois tu l'as revue ?", r: 1,
-    w: "Une enquête exagérée sur un sujet léger." },
-  { f: "Double sens", p: "ig", t: "Un petit service", h: "« Elle : Tu peux me rendre un petit service ? »",
-    s: ["Plan 1 : une seule boîte à chaussures sur une table.", "Plan 2 : cinq autres arrivent dans le cadre.", "Plan 3 : un chariot entier de boîtes passe devant la caméra."],
-    c: "J'aurais dû demander lequel.", g: ["#humour", "#couple", "#chaussures"], a: "Tu aurais dit oui ou non ?", r: 1,
-    w: "Une demande modeste qui devient énorme." },
-  { f: "Double sens", p: "ig", t: "J'espère que tu aimes les talons", h: "« Elle : J'espère que tu aimes les talons. »",
-    s: ["Plan 1 : une paire de talons sur une table, éclairage dramatique.", "Plan 2 : la lumière monte, musique de cérémonie.", "Plan 3 : tapis rouge, projecteurs et flashs d'appareil photo."],
-    c: "Je pense qu'il va adorer.", g: ["#humour", "#talons", "#ootd"], a: "Ton type de talon préféré ?", r: 1,
-    w: "Une cérémonie pour un objet du quotidien." },
-  { f: "Double sens", p: "ig", t: "Juste pour le style", h: "« Lui : Je regarde seulement la tenue. »",
-    s: ["Plan 1 : tenue complète, cadre taille-chaussures. Texte : « Je regarde seulement la tenue »", "Plan 2 : zoom instantané sur les chaussures, son de glissando.", "Plan 3 : texte à l'écran « Bien sûr »."],
-    c: "Évidemment.", g: ["#humour", "#couple", "#ootd"], a: "Tu regardes quoi en premier ?", r: 1,
-    w: "Une phrase démentie par l'image : l'ironie se comprend seule." },
-  { f: "Double sens", p: "ig", t: "C'est pour le style, bien sûr", h: "Les commentaires : « C'est juste pour le style »",
-    s: ["Plan 1 : capture fictive d'un commentaire écrit par toi, sans pseudo.", "Plan 2 : défilé rapide de plusieurs commentaires qui disent la même chose.", "Plan 3 : texte « Merci pour votre intérêt pour la mode »."],
-    c: "La mode attire du monde.", g: ["#humour", "#commentaires", "#mode"], a: "Tu es là pour la mode ?", r: 1,
-    w: "On se reconnaît dans la blague : on commente." },
-  { f: "Double sens", p: "ig", t: "Si tu as regardé trois fois", h: "Si tu as regardé cette vidéo trois fois, c'est pour la mode.",
-    s: ["Plan 1 : tenue et chaussures, le texte est à l'écran dès la première image.", "Plan 2 : un compteur « ×2 » apparaît quand la vidéo boucle.", "Plan 3 : « ×3 », texte « Évidemment, pour la mode »."],
-    c: "Pas de jugement.", g: ["#humour", "#mode"], a: "Avoue en commentaire : combien de fois ?", r: 1,
-    w: "Une vidéo qui boucle invite à la revoir." },
-  { f: "Double sens", p: "ig", t: "Il ne remarque jamais", h: "« Lui : Je ne remarque jamais ce que tu portes. »",
-    s: ["Plan 1 : la phrase à l'écran sur un plan de tenue.", "Plan 2 : un tableau de notes détaillées sur les chaussures, collé au mur.", "Plan 3 : une main ajoute un post-it, texte « Rien du tout »."],
-    c: "Il ne remarque jamais rien.", g: ["#humour", "#couple", "#ootd"], a: "Tague la personne qui dit ça.", r: 1,
-    w: "On pense tout de suite à quelqu'un à taguer." },
-  { f: "Double sens", p: "ig", t: "Ferme les yeux", h: "« Elle : Ferme les yeux. »",
-    s: ["Plan 1 : écran noir, bruit de talons qui s'approchent.", "Plan 2 : le bruit s'arrête, silence, battement de cœur en son.", "Plan 3 : un panneau « Fermé pour inventaire » apparaît à l'écran."],
-    c: "J'avais pourtant tout préparé.", g: ["#humour", "#suspense"], a: "Tu aurais ouvert les yeux ?", r: 1,
-    w: "Du suspense sonore, puis une chute banale." },
-  { f: "Double sens", p: "ig", t: "Tu vois quelque chose de différent ?", h: "« Elle : Tu vois quelque chose de différent ? »",
-    s: ["Plan 1 : tenue complète, la phrase à l'écran.", "Plan 2 : loupe géante sur le vernis d'une main.", "Plan 3 : texte « Non. La paire. »"],
-    c: "Il y avait un indice.", g: ["#humour", "#vernis", "#couple"], a: "Devine ce qui avait changé.", r: 1,
-    w: "Une devinette : on commente sa réponse." },
-  { f: "Double sens", p: "ig", t: "Édition spéciale", h: "Mon mec quand je dis : « J'ai acheté une nouvelle paire »",
-    s: ["Plan 1 : un faux plateau de journal télévisé, le texte à l'écran.", "Plan 2 : un bandeau « ÉDITION SPÉCIALE » qui défile.", "Plan 3 : plan sur une paire neuve, sirène en bruitage."],
-    c: "Alerte maximale.", g: ["#humour", "#couple", "#chaussures"], a: "Ta réaction devant une nouvelle paire ?", r: 1,
-    w: "Une exagération façon journal télé." },
-  { f: "Double sens", p: "ig", t: "Il a lâché son téléphone", h: "Quand j'enfile mes bottes devant lui",
-    s: ["Plan 1 : des bottes qu'on enfile, plan taille-chaussures.", "Plan 2 : un téléphone tombe dans le cadre, bruit sourd.", "Plan 3 : texte « Il va falloir changer l'écran »."],
-    c: "Dégât matériel.", g: ["#humour", "#couple", "#bottes"], a: "Raconte ton dernier téléphone cassé.", r: 1,
-    w: "Un geste, un bruit, une chute : tout tient en trois secondes." },
-  { f: "Double sens", p: "ig", t: "Rendez-vous à 19 h", h: "« Lui : Tu es prête ? Elle : Presque. »",
-    s: ["Plan 1 : horloge à 18 h 55.", "Plan 2 : accéléré de la préparation, chaussures et accessoires.", "Plan 3 : horloge à 21 h 55, texte « Presque »."],
-    c: "Il attend toujours.", g: ["#humour", "#couple", "#relatable"], a: "Combien de temps tu attends ?", r: 1,
-    w: "Une situation que tout le monde connaît." },
-  { f: "Double sens", p: "ig", t: "Le comité de validation", h: "« Le comité a voté. À l'unanimité. »",
-    s: ["Plan 1 : table de réunion vide, deux paires posées dessus.", "Plan 2 : des mains lèvent des pancartes « OUI ».", "Plan 3 : tampon « Adopté à l'unanimité »."],
-    c: "La décision est prise.", g: ["#humour", "#chaussures"], a: "Quelle paire est adoptée ?", r: 1,
-    w: "Un décor officiel pour une question de style." },
-  { f: "Double sens", p: "ig", t: "Je ne regarde plus ses stories", h: "« Lui : Je ne regarde plus ses stories. »",
-    s: ["Plan 1 : un téléphone en main, la phrase à l'écran.", "Plan 2 : compteur de vues : 14 vues du même compte.", "Plan 3 : texte « Aucun jugement »."],
-    c: "Les statistiques parlent.", g: ["#humour", "#story"], a: "Et toi, tu es à combien ?", r: 1,
-    w: "Un chiffre qui contredit la phrase : on se reconnaît." }
-);
-
-/* ---------- Teasers : jamais un mot sur le calendrier, seulement du mystère ----------
-   Règle : on ne dit pas ce que c'est, ni quand exactement, ni où. On dit juste que quelque chose arrive. */
-BANK.push(
-  { f: "Teaser", t: "Vous n'êtes pas prêts", h: "Vous n'êtes pas prêts pour ce qui arrive",
-    s: ["Plan 1 : une paire de talons posée au centre, éclairage tamisé, cadre fixe.", "Plan 2 : la lumière baisse, un tissu noir recouvre peu à peu les chaussures.", "Plan 3 : écran noir, texte « Bientôt »."],
-    c: "Bientôt. 🖤", g: ["#bientot", "#teaser"], a: "Dis ce que tu imagines.", r: 0,
-    w: "Un mystère court donne envie de revenir voir la suite." },
-  { f: "Teaser", t: "Chut", h: "Je ne peux rien dire. Mais préparez-vous.",
-    s: ["Plan 1 : une main fait « chut » devant l'objectif, aucun visage.", "Plan 2 : plan sur des boîtes fermées avec un ruban noir, cuts rapides.", "Plan 3 : texte « Plus que quelques jours »."],
-    c: "Chut. 🤫", g: ["#teaser", "#secret"], a: "Tu as une idée de ce que c'est ?", r: 0,
-    w: "Un secret annoncé sans être révélé : on commente pour deviner." },
-  { f: "Teaser", t: "Derrière l'écran", h: "Ça fait des semaines que je prépare ça en secret",
-    s: ["Plan 1 : plan de travail en gros plan : mains, carnet, accessoires, aucun visage.", "Plan 2 : accéléré de la préparation, cuts sur le rythme.", "Plan 3 : un objet recouvert d'un tissu noir, texte « Presque prêt »."],
-    c: "Presque prêt. ✨", g: ["#teaser", "#coulisses"], a: "Dis ce que tu espères.", r: 0,
-    w: "Des coulisses sans révélation : la curiosité fait revenir." }
-);
-
-/* ---------- Dates spéciales ----------
-   Ces idées sortent de la rotation et tombent à une date précise. slot : post1 = toujours TikTok + Insta, post2 = peut être Insta seulement. */
-var SPECIALS = [
-  { d: "2026-11-25", slot: "post2", idea: { f: "Teaser", p: "tt", occ: "Teaser", t: "Quelque chose qui va vous régaler", h: "Ça fait des semaines que je travaille sur quelque chose qui va vous régaler",
-    s: ["Plan 1 : plan de travail en gros plan, mains et accessoires, aucun visage.", "Plan 2 : accéléré de la préparation, cuts sur le rythme.", "Plan 3 : un objet recouvert d'un tissu noir, texte « Presque prêt »."],
-    c: "Presque prêt. ✨", g: ["#teaser", "#bientot", "#coulisses"], a: "Dis ce que tu espères.", r: 0,
-    n: "Ne dis jamais ce que c'est, ni quand, ni où.",
-    w: "Un teaser sans révélation : la curiosité fait revenir." } },
-  { d: "2026-11-28", slot: "post1", idea: { f: "Teaser", p: "tt", occ: "Teaser", t: "Le minuteur", h: "Vous n'êtes pas prêts pour ce qui arrive",
-    s: ["Plan 1 : un minuteur qui défile, plan fixe sur une paire de bottes.", "Plan 2 : le minuteur accélère, zoom sur les bottes.", "Plan 3 : il s'arrête sur « ?? », texte « Vous saurez bientôt »."],
-    c: "Bientôt. 🖤", g: ["#teaser", "#bientot"], a: "Dis ce que tu imagines.", r: 0,
-    n: "Ne dis jamais ce que c'est, ni quand, ni où.",
-    w: "Un compte à rebours sans réponse : on veut voir la fin." } },
-  { d: "2026-11-30", slot: "post1", idea: { f: "Teaser", p: "tt", occ: "Teaser", t: "Demain", h: "Demain, tout change. Préparez-vous.",
-    s: ["Plan 1 : une porte fermée, plan fixe, de la lumière passe dessous.", "Plan 2 : la poignée s'abaisse doucement.", "Plan 3 : écran noir, texte « Demain »."],
-    c: "Demain. 🖤", g: ["#teaser", "#demain"], a: "Tu seras là ?", r: 0,
-    n: "Ne dis jamais ce que c'est, ni où.",
-    w: "La veille d'un événement : une attente partagée." } },
-  { d: "2026-11-26", slot: "post2", idea: { f: "Occasion", p: "ig", occ: "Défi de novembre", t: "Novembre, dernière ligne droite", h: "« Il reste 4 jours. Certains ne dorment plus. »",
-    s: ["Plan 1 : calendrier de novembre, les jours barrés au feutre, plan fixe.", "Plan 2 : une main barre le 25, zoom sur les quatre cases qui restent, son de compte à rebours.", "Plan 3 : des bottes posées sur le calendrier, projecteur, texte « Bon courage »."],
-    c: "Courage aux concernés. 👀", g: ["#novembre", "#calendrier", "#humour"], a: "Tu tiens encore ?", r: 1,
-    n: "N'écris jamais le nom du défi, ni son hashtag, ni dans la vidéo ni dans la légende : le clin d'œil suffit. Pas sur TikTok.",
-    w: "Une référence que ton public connaît, jamais nommée : le sous-entendu reste dans la tête de celui qui regarde." } },
-  { d: "2026-11-27", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Black Friday", t: "Vendredi noir, look noir", h: "Le noir va avec absolument tout",
-    s: ["Trois plans, même cadre du genou au sol : baskets noires, bottines noires, talons noirs.", "Un cut sur chaque temps fort, tenue noire à chaque fois.", "Dernier plan : les trois paires alignées, texte « Impossible de choisir »."],
-    c: "Le noir, mais jamais trop simple. 🖤", g: ["#blackfriday", "#noir", "#ootd"], a: "Ton noir préféré : 1, 2 ou 3 ?", d: "Écris ton chiffre en message, je compte les votes.", r: 0,
-    w: "Un moment que tout le monde connaît, traité par le style et jamais par l'achat." } },
-  { d: "2026-11-30", slot: "post2", idea: { f: "Occasion", p: "ig", occ: "Fin du défi de novembre", t: "Trente jours, c'est fini", h: "« 30 jours. Ils l'ont fait. Ou presque. »",
-    s: ["Plan 1 : calendrier de novembre entièrement barré, plan fixe.", "Plan 2 : un minuteur affiche « 00:00 », flash de lumière.", "Plan 3 : des bottes entrent dans le cadre au ralenti, texte « Décembre peut commencer »."],
-    c: "Novembre est terminé. Les concernés se reconnaîtront.", g: ["#novembre", "#decembre", "#humour"], a: "Raconte comment c'était.", r: 1,
-    n: "Même consigne que le 26 : ne nomme jamais le défi, ni son hashtag. Pas sur TikTok.",
-    w: "La fin d'une série que ton public suit : un moment de clôture partagé." } },
-  { d: "2026-12-01", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "1er décembre", t: "Décembre est ouvert", h: "Bon. On peut officiellement commencer.",
-    s: ["Plan 1 : un calendrier qui passe au 1er décembre, plan fixe.", "Plan 2 : chaussettes d'hiver puis bottines, deux cuts rapides.", "Plan 3 : tenue complète, décoration de Noël en arrière-plan."],
-    c: "Décembre, je t'attendais. 🎄", g: ["#decembre", "#noel", "#ootd"], a: "Dis ta première envie de décembre.", r: 0,
-    w: "Le début du mois de Noël : un thème que tout le monde attend." } },
-  { d: "2026-12-03", slot: "post1", idea: { f: "Fêtes", p: "tt", occ: "Noël", t: "Chaussettes de Noël, le classement", h: "Les chaussettes de Noël, classées sans pitié",
-    s: ["Quatre paires à motifs de Noël, sapin en arrière-plan.", "Classement du meilleur au pire, 3 s par paire.", "Dernier plan : celle qui brille, avec un mot d'humour."],
-    c: "Les fêtes, version confort.", g: ["#noel", "#chaussettes"], a: "Dis quelle paire tu offrirais.", r: 0,
-    w: "Un thème de saison colle à ce que les gens vivent en ce moment." } },
-  { d: "2026-12-06", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Saint-Nicolas", t: "Les chaussures devant la cheminée", h: "J'ai été sage cette année. Enfin… presque.",
-    s: ["Plan 1 : une paire de bottines devant une cheminée ou un radiateur, lumière chaude.", "Plan 2 : un petit paquet se glisse dedans.", "Plan 3 : plan large, texte « Saint-Nicolas a bon goût »."],
-    c: "Saint-Nicolas est passé. 🎁", g: ["#saintnicolas", "#noel"], a: "Qu'est-ce que tu as trouvé dans tes chaussures ?", r: 0,
-    w: "La tradition veut qu'on pose ses chaussures : le thème colle à ta niche sans rien montrer d'autre." } },
-  { d: "2026-12-10", slot: "post1", idea: { f: "Fêtes", p: "tt", occ: "Noël", t: "Cadeau pour moi", h: "Je m'offre une paire pour les fêtes : vous choisissez",
-    s: ["Trois paires dans des boîtes ouvertes, ruban rouge.", "Une phrase pour chaque, 3 s chacune.", "Dernier plan : « Votez, j'achète demain »."],
-    c: "Le vote est ouvert.", g: ["#noel", "#cadeau"], a: "Vote avec 1, 2 ou 3.", d: "Écris 1, 2 ou 3 en message, je compte les votes.", r: 0,
-    w: "Un vote avec une vraie conséquence donne une raison de revenir." } },
-  { d: "2026-12-12", slot: "post2", idea: { f: "Double sens", p: "ig", occ: "Noël", t: "Lettre au Père Noël", h: "« Cher Père Noël, j'ai été très sage. Presque. »",
-    s: ["Plan 1 : une lettre manuscrite devant un sapin, plan fixe, aucun visage.", "Plan 2 : une main barre un mot et en réécrit un autre, son de stylo.", "Plan 3 : cut sur une paire de bottes rouges avec un nœud de cadeau, texte « Il saura »."],
-    c: "J'ai fait de mon mieux. 🎅", g: ["#noel", "#humour", "#perenoel"], a: "Qu'est-ce que tu as demandé ?", r: 1,
-    w: "Un thème de saison avec un clin d'œil léger." } },
-  { d: "2026-12-17", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Noël", t: "La tenue du marché de Noël", h: "Le plus dur, c'est de choisir les chaussures",
-    s: ["Plan 1 : bottines et collants opaques posés sur un lit, plan fixe.", "Plan 2 : manteau, écharpe, bonnet, trois cuts rapides.", "Plan 3 : tenue complète sous des guirlandes, texte « Prête pour le chocolat chaud »."],
-    c: "Prête pour les lumières. ✨", g: ["#marchedenoel", "#hiver", "#ootd"], a: "Ton marché de Noël préféré ?", r: 0,
-    w: "Un thème de saison que tout le monde vit en décembre." } },
-  { d: "2026-12-19", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Noël", t: "Le papier cadeau ne suffit pas", h: "Quand tu veux faire un joli paquet…",
-    s: ["Plan 1 : petite boîte cadeau déjà emballée.", "Plan 2 : une énorme boîte à chaussures entre dans le cadre.", "Plan 3 : le rouleau de papier se déroule jusqu'au bout, texte « Il m'en faut plus »."],
-    c: "J'aurais dû prévoir plus de papier.", g: ["#noel", "#cadeau", "#humour"], a: "Tu emballes bien ou mal ?", r: 0,
-    w: "Une situation que tout le monde connaît à cette période." } },
-  { d: "2026-12-22", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "J-3 avant Noël", t: "Plus que trois jours", h: "J-3. Il est temps de choisir la tenue.",
-    s: ["Plan 1 : un calendrier ou un téléphone affiche le 22 décembre.", "Plan 2 : trois paires de fête alignées, un cut sur chaque temps fort.", "Plan 3 : une paire choisie, lumière de guirlande, texte « Ça devient sérieux »."],
-    c: "Ça devient sérieux. ✨", g: ["#noel", "#compteabebours", "#ootd"], a: "Ta tenue est prête ?", r: 0,
-    w: "Un compte à rebours donne une raison de revenir." } },
-  { d: "2026-12-24", slot: "post1", idea: { f: "Fêtes", p: "tt", occ: "Réveillon", t: "Ma tenue de réveillon", h: "Ma tenue du 24, jusqu'aux chaussures",
-    s: ["Trois plans : cadre taille, accessoire, chaussures.", "Lumières de guirlande en fond.", "Dernier plan : les chaussures posées sous le sapin."],
-    c: "Presque prête.", g: ["#noel", "#ootd"], a: "Dis-moi ta tenue du 24.", r: 0,
-    w: "Un thème de saison, un plan final clair." } },
-  { d: "2026-12-25", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Noël", t: "Sous le sapin", h: "Joyeux Noël de la part de mes chaussettes",
-    s: ["Plan 1 : chaussettes de Noël posées au pied du sapin, cadre bas.", "Plan 2 : un paquet glissé devant, puis un deuxième.", "Plan 3 : plan large du sapin éclairé, texte « Joyeux Noël »."],
-    c: "Joyeux Noël à tous. 🎄", g: ["#noel", "#sapin", "#chaussettes"], a: "Qu'est-ce que tu as trouvé sous le sapin ?", r: 0,
-    w: "Le jour de Noël : un message simple et chaleureux." } },
-  { d: "2026-12-31", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Réveillon du 31", t: "Le dernier look de l'année", h: "On termine l'année comme ça",
-    s: ["Plan 1 : chaussures de soirée sur un fond sombre.", "Plan 2 : collants et détails de la tenue, lumière festive.", "Plan 3 : look complet, flash de lumière sur le temps fort."],
-    c: "Dernière tenue de 2026. Vous validez ? 🥂", g: ["#reveillon", "#ootd", "#2026"], a: "Note la tenue sur 10.", r: 0,
-    w: "Un dernier look de l'année : une raison de commenter et de revoir." } },
-  { d: "2027-01-01", slot: "post1", idea: { f: "Occasion", p: "tt", occ: "Nouvel An", t: "2027 : nouvelle paire ?", h: "2027, on repart sur de bonnes bases",
-    s: ["Plan 1 : un calendrier qui passe de 2026 à 2027.", "Plan 2 : une vieille paire rangée dans sa boîte.", "Plan 3 : une paire neuve mise en scène avec une tenue élégante."],
-    c: "Bonne année à tous. ❤️", g: ["#bonneannee", "#2027", "#ootd"], a: "Ton souhait pour 2027 ?", r: 0,
-    w: "Le premier jour de l'année : un thème de départ." } }
-];
-
-/* ---------- Invitations en message ----------
-   Seulement sur les posts « TikTok + Insta ». Sur un post à double sens, on reste sur le commentaire. */
-var DM_LINES = {
-  "Vote": ["Écris ton choix en message, je réponds à tout le monde.", "Envoie-moi ton avis en message, je lis tout."],
-  "Classement": ["Envoie-moi ton classement en message, je compare.", "Écris-moi ton numéro 1 en message."],
-  "Défi": ["Écris-moi en message le défi que tu veux voir.", "Envoie ton défi en message, j'en tire un au sort."],
-  "Réponse": ["Pose ta question en message, je réponds en vidéo.", "Écris-moi ta question en message, je la prends."],
-  "Teaser": ["Écris-moi en message ce que tu imagines, je lis tout.", "Dis-moi en message ce que tu attends, je te réponds."]
-};
-
-/* Par défaut, une idée peut aller sur TikTok et Instagram. */
-BANK.forEach(function (b) { if (!b.p) { b.p = "tt"; } });
-SPECIALS.forEach(function (s) { if (!s.idea.p) { s.idea.p = "tt"; } });
-
-/* ---------- Clin d'œil : tout public, double lecture ----------
-   Principe : cache le sous-entendu avec ta main, la vidéo doit rester drôle toute seule.
-   Les curieux comprennent, les autres ne voient qu'une vidéo d'étudiante qui fait de l'humour.
-   Jamais d'invitation en message sur ces posts, jamais de prix, jamais de lien. */
-BANK.push(
-  { f: "Clin d'œil", p: "tt", t: "Le plan B", h: "Mon plan B si les études ne marchent pas",
-    s: ["Plan 1 : cahier ouvert et stylo sur un bureau, cadre fixe, 2 secondes.", "Plan 2 : caméra sous le bureau, en chaussettes blanches, le pied se balance au rythme du son.", "Plan 3 : retour sur le cahier, texte « Plan B : validé »."],
-    c: "Le plan B est prêt. 🧦", g: ["#etudiante", "#planB", "#chaussettes"], a: "Et toi, c'est quoi ton plan B ?", r: 0,
-    w: "Une phrase que tout le monde comprend, avec un petit sourire pour ceux qui captent." },
-  { f: "Clin d'œil", p: "tt", t: "Plus loin que le CV", h: "Parce que mes talons me mèneront toujours plus loin que mon CV",
-    s: ["Plan 1 : un CV imprimé posé par terre, plan fixe au sol.", "Plan 2 : une paire de talons passe d'un pas sûr à côté du CV, sans le regarder.", "Plan 3 : les talons s'éloignent, texte « Direction : ailleurs »."],
-    c: "On verra bien. 👠", g: ["#talons", "#cv", "#humour"], a: "Écris ta phrase « Parce que… toujours plus que… ».", r: 0,
-    w: "La formule « toujours plus que » se répète facilement : tu peux en faire une série." },
-  { f: "Clin d'œil", p: "tt", t: "Plus que les partiels", h: "Parce que mes chaussettes porte-bonheur compteront toujours plus que mes révisions",
-    s: ["Plan 1 : fiches de révision étalées, cadre fixe.", "Plan 2 : une main pose une paire de chaussettes à pois sur les fiches, musique triomphale.", "Plan 3 : texte « Confiance maximale »."],
-    c: "Ça va bien se passer. 🧦", g: ["#partiels", "#revisions", "#chaussettes"], a: "Quel est ton porte-bonheur pour les examens ?", r: 0,
-    w: "Un porte-bonheur, tout le monde en a un : on se reconnaît." },
-  { f: "Clin d'œil", p: "tt", t: "Ce que mes parents croient", h: "Ce que mes parents croient que je fais le soir",
-    s: ["Plan 1 : texte « Ce qu'ils croient », cahier et lampe de bureau.", "Plan 2 : texte « Ce que je fais vraiment », essayage de trois paires de bottines devant un miroir, en accéléré.", "Plan 3 : un doigt devant la bouche, texte « Chut »."],
-    c: "Chut. 🤫", g: ["#etudiante", "#parents", "#chaussures"], a: "Et toi, qu'est-ce que tes parents ne savent pas ?", r: 1,
-    n: "Ne dis jamais de quoi il s'agit.",
-    w: "Un secret annoncé sans être dit : on commente pour deviner." },
-  { f: "Clin d'œil", p: "tt", t: "Mon job d'étudiante", h: "Mon job d'étudiante ne se voit pas sur mon CV",
-    s: ["Plan 1 : un CV avec une ligne « Expérience », plan fixe.", "Plan 2 : plan bas, des chaussettes qui dépassent d'une chaise, le pied tape le rythme.", "Plan 3 : texte « Compétences : patience, discrétion »."],
-    c: "Discrétion assurée. 🤫", g: ["#jobetudiant", "#cv", "#humour"], a: "Quel est le job le plus bizarre que tu aies fait ?", r: 1,
-    n: "Ne dis jamais ce que c'est, ni combien.",
-    w: "Un CV qui cache quelque chose : tout le monde a envie de lire la ligne manquante." },
-  { f: "Clin d'œil", p: "tt", t: "Fin de mois", h: "Fin de mois d'étudiante, version optimiste",
-    s: ["Plan 1 : un porte-monnaie ouvert et vide, plan fixe.", "Plan 2 : plan large, quelqu'un saute en chaussettes sur un canapé, musique joyeuse.", "Plan 3 : texte « Je gère »."],
-    c: "Je gère. 🧦", g: ["#etudiante", "#budget", "#humour"], a: "C'est quoi ta technique de fin de mois ?", r: 0,
-    w: "Un sujet que tous les étudiants connaissent : on commente, on partage." },
-  { f: "Clin d'œil", p: "tt", t: "Le loyer", h: "Mon plan pour le loyer : rester adorable",
-    s: ["Plan 1 : texte « Mon plan pour le loyer », une boîte à chaussures posée sur une table.", "Plan 2 : on soulève le couvercle : des chaussettes pliées avec soin, musique de film.", "Plan 3 : un clin d'œil à la caméra, texte « Stratégie en cours »."],
-    c: "Tout est sous contrôle. 😌", g: ["#loyer", "#etudiante", "#humour"], a: "Et ton plan, c'est quoi ?", r: 1,
-    n: "Ne dis jamais combien ni comment.",
-    w: "Le loyer parle à tout le monde, et la chute laisse deviner sans rien dire." },
-  { f: "Clin d'œil", p: "tt", t: "Je travaille dans le textile", h: "Quand on me demande ce que je fais dans la vie",
-    s: ["Plan 1 : la question écrite à l'écran, plan fixe sur un fond neutre.", "Plan 2 : haussement d'épaules, plan large de chaussettes colorées alignées sur un fil à linge.", "Plan 3 : texte « Je travaille dans le textile »."],
-    c: "Textile, oui. 🧦", g: ["#textile", "#humour", "#chaussettes"], a: "Quelle est ta réponse quand on te demande ?", r: 1,
-    w: "Une réponse vraie et fausse à la fois : c'est ce qui fait sourire." },
-  { f: "Clin d'œil", p: "tt", t: "Les expressions avec pied", h: "Les expressions avec « pied », version illustrée",
-    s: ["Plan 1 : texte « Avoir les pieds sur terre », une paire de baskets bien posée à côté d'un pot de terre.", "Plan 2 : texte « Mettre les pieds dans le plat », des chaussettes avancent vers une assiette vide (jamais dedans).", "Plan 3 : texte « Un pied dans la porte », une chaussure coincée dans l'embrasure."],
-    c: "Il y en a plein d'autres. 😄", g: ["#expressions", "#francais", "#humour"], a: "Donne-moi une expression à illustrer.", r: 0,
-    w: "Un jeu de mots que tout le monde connaît : on le partage à un ami." },
-  { f: "Clin d'œil", p: "tt", t: "Un pied dans la porte", h: "Un pied dans la porte, ça marche encore pour trouver un job ?",
-    s: ["Plan 1 : un CV glissé sous une porte, plan fixe.", "Plan 2 : une chaussure s'avance et bloque la porte, musique d'action.", "Plan 3 : texte « Entretien dans 10 minutes »."],
-    c: "Ça s'appelle de la persévérance.", g: ["#cv", "#entretien", "#humour"], a: "Ton pire entretien d'embauche en un mot ?", r: 0,
-    w: "Une question que tout le monde se pose : on a envie de répondre." },
-  { f: "Clin d'œil", p: "tt", t: "Semaine d'examens", h: "Ma semaine d'examens racontée par mes chaussettes",
-    s: ["Plan 1 : lundi, deux chaussettes assorties bien alignées.", "Plan 2 : mercredi, deux chaussettes dépareillées en désordre.", "Plan 3 : vendredi, une seule chaussette, texte « Courage »."],
-    c: "Vendredi, c'est tout ce qui reste.", g: ["#examens", "#etudiante", "#chaussettes"], a: "À quel jour de la semaine tu en es ?", r: 0,
-    w: "Une progression par jour : on reste jusqu'au vendredi." },
-  { f: "Clin d'œil", p: "tt", t: "Ce qu'on regarde en premier", h: "Ce qu'on regarde en premier chez quelqu'un",
-    s: ["Plan 1 : texte « Les yeux ? Le sourire ? Les chaussures ? », plan fixe sur une paire de baskets.", "Plan 2 : trois cuts rapides, un par choix, avec un chiffre de 1 à 3 à l'écran.", "Plan 3 : texte « Réponds avec ton chiffre »."],
-    c: "Moi, je sais déjà. 😏", g: ["#vote", "#chaussures", "#humour"], a: "Réponds avec 1, 2 ou 3.", r: 0,
-    w: "Un vote à trois choix : une action simple, et chacun défend son choix." }
-);
-
-/* ---------- Partie 4 : le style des vidéos qui marchent ----------
-   Format de référence : une seule prise de 8 secondes, un plan fixe sur des chaussures ou des chaussettes,
-   une grande phrase à l'écran dès la première image, une légende très courte.
-   Deux sortes d'idées :
-   - « Clin d'œil » : une double lecture dans le texte seulement (jamais dans les gestes). Pas d'invitation en message, ni lien, ni prix.
-   - Idées tout public (Vote, Sketch, Routine, Astuce) : elles font réagir sans rien suggérer. Elles servent à élargir l'audience. */
-
-function oneShot(what, texts, tail) {
+/* La prise unique de 8 secondes : texte à l'écran dès la première image, caméra qui ne bouge plus. */
+function shot(pose, texts, tail) {
   var per = Math.round(8 / texts.length), i, t = 0, out = [
-    "Prépare : " + what + ".",
-    "Cadre : téléphone calé au sol contre un livre, objectif vers tes chaussures, du genou au sol, sur un fond uni (mur, porte, drap). Ne le touche plus.",
-    "Appuie sur Enregistrer et reste immobile 8 secondes. Pas besoin de bouger : c'est le texte qui fait la vidéo."
+    "Prépare : " + pose.what + ".",
+    "Cadre : téléphone calé contre un livre, à la verticale, objectif vers tes pieds. On voit tes pieds et tes chevilles, jamais ton visage. Ne touche plus au téléphone.",
+    "Appuie sur Enregistrer, puis pendant 8 secondes : " + pose.action + "."
   ];
   for (i = 0; i < texts.length; i++) {
     out.push("Texte " + (i + 1) + " (outil Texte, gros, blanc, centré en haut) de " + t + " à " + Math.min(8, t + per) + " s : « " + texts[i] + " »");
@@ -1003,167 +443,413 @@ function oneShot(what, texts, tail) {
   return out;
 }
 
-BANK.push(
-  /* ---------- Clin d'œil (6) ---------- */
-  { f: "Clin d'œil", p: "tt", t: "Conseil d'orientation", h: "Conseil d'orientation : « Soyez créative. »",
-    s: ["Plan fixe sur des chaussettes blanches posées sur un tapis, texte « Le conseiller d'orientation : “Soyez créative.” ».", "À 4 secondes, le texte change : « Je me suis exécutée. »", "La vidéo boucle sur le début, sans rien changer."],
-    c: "J'ai suivi les conseils. 🧦", g: ["#orientation", "#etudiante", "#humour"], a: "Que t'a dit ton conseiller d'orientation ?", r: 1,
-    n: "Ne précise jamais ce que « créative » veut dire.",
-    w: "Tout le monde a reçu un conseil d'orientation absurde : on se reconnaît, et ceux qui captent sourient.",
-    x: { m: ["Des chaussettes propres, blanches ou colorées", "Un tapis ou un sol uni", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: oneShot("des chaussettes propres, posées ou portées sur un tapis uni", ["Le conseiller d'orientation : “Soyez créative.”", "Je me suis exécutée."]),
-      k: "Le test : sans la deuxième phrase, la première reste drôle toute seule." } },
-  { f: "Clin d'œil", p: "tt", t: "Mon prof avait raison", h: "Mon prof : « Vous irez loin. » Mes baskets : « On sait. »",
-    s: ["Plan fixe sur des baskets blanches, texte « Mon prof : “Vous irez loin.” ».", "À 4 secondes, deuxième texte : « Mes baskets : “On sait.” »", "La vidéo boucle sur le début."],
-    c: "Il avait raison. 👟", g: ["#etudiante", "#humour", "#baskets"], a: "C'est quoi la phrase que ton prof t'a dite ?", r: 0,
-    w: "Une phrase de prof que tout le monde connaît, retournée en blague.",
-    x: { m: ["Des baskets propres", "Un sol uni", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: oneShot("des baskets propres, lacées, sur un sol uni", ["Mon prof : “Vous irez loin.”", "Mes baskets : “On sait.”"]),
-      k: "Le test : on comprend le jeu de mots en moins de 3 secondes." } },
-  { f: "Clin d'œil", p: "tt", t: "Plan de carrière", h: "Mon plan de carrière tient dans un tiroir à chaussettes",
-    s: ["Plan fixe vu du dessus sur un tiroir ouvert rempli de chaussettes pliées.", "Le texte apparaît dès la première image.", "À 5 secondes, une main referme doucement le tiroir. Fin."],
-    c: "Tout est rangé. 🧦", g: ["#etudiante", "#humour", "#chaussettes"], a: "Et ton plan de carrière, il tient dans quoi ?", r: 0,
-    w: "Un tiroir ordonné et une phrase décalée : on regarde jusqu'à la fermeture du tiroir.",
-    x: { m: ["Un tiroir (ou une boîte) rempli de chaussettes pliées", "Un livre ou une chaise pour caler le téléphone au-dessus"], l: "8 secondes",
-      p: [
-        "Prépare : plie tes chaussettes par paires, de façon bien nette, et range-les dans un tiroir ou une boîte.",
-        "Cadre : téléphone calé au-dessus du tiroir, objectif vers le bas, sur un livre ou un dossier de chaise. On voit tout le tiroir ouvert.",
-        "Appuie sur Enregistrer : reste immobile 5 secondes, puis referme le tiroir doucement avec la main (pas de visage).",
-        "Texte (outil Texte, gros, blanc, en haut), de 0 à 8 s : « Mon plan de carrière tient dans un tiroir à chaussettes »",
-        "Légende courte, un seul emoji. Poste le soir, entre 18 h et 21 h."
-      ],
-      k: "Le test : les chaussettes sont bien rangées, c'est ce qui rend le contraste drôle." } },
-  { f: "Clin d'œil", p: "tt", t: "Les portes s'ouvrent", h: "Parce que mes baskets blanches m'ouvriront toujours plus de portes que mon diplôme",
-    s: ["Plan bas fixe devant une porte fermée, le texte est à l'écran dès la première image.", "Tu avances de trois pas et tu ouvres la porte, cadre du genou au sol.", "Tu passes la porte, la vidéo boucle sur le début."],
-    c: "On verra. 👟", g: ["#etudiante", "#baskets", "#humour"], a: "Écris ta phrase « Parce que… m'ouvrira plus de portes que… ».", r: 1,
-    n: "Ne dis jamais de quelles portes il s'agit.",
-    w: "La formule « toujours plus que » se répète : tu peux en faire une série.",
-    x: { m: ["Des baskets blanches propres", "Une porte que tu peux ouvrir et passer (chambre, entrée)", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: [
-        "Prépare : baskets blanches propres aux pieds. Ferme la porte de la pièce voisine, côté couloir.",
-        "Cadre : téléphone calé au sol contre le mur, à 1 mètre de la porte, objectif vers la porte. On voit le bas de la porte et le sol.",
-        "Appuie sur Enregistrer, reste 2 secondes immobile, puis avance de trois pas vers la porte, ouvre-la et passe de l'autre côté : tu sors du cadre.",
-        "Texte (outil Texte, gros, blanc, centré en haut) de 0 à 8 s : « Parce que mes baskets blanches m'ouvriront toujours plus de portes que mon diplôme »",
-        "Légende courte, un seul emoji. Poste le soir, entre 18 h et 21 h."
-      ],
-      k: "Le test : la porte s'ouvre dans les 5 premières secondes, sinon on décroche." } },
-  { f: "Clin d'œil", p: "tt", t: "Mon relevé de notes", h: "Mon relevé de notes. Mon placard à chaussettes.",
-    s: ["Plan 1 : une feuille « Relevé de notes » avec une seule ligne visible, texte « Mon relevé de notes ».", "Plan 2 : un tiroir à chaussettes impeccable, texte « Mon placard à chaussettes ».", "Texte final : « Priorités. »"],
-    c: "Chacun ses priorités. 🧦", g: ["#etudiante", "#humour", "#chaussettes"], a: "Ton relevé de notes ou ton placard : lequel est le mieux rangé ?", r: 0,
-    w: "Une comparaison que tout étudiant comprend, avec une chute simple.",
-    x: { m: ["Une feuille avec « Relevé de notes » écrit en haut (sans vrai nom)", "Un tiroir de chaussettes rangées", "Un livre pour caler le téléphone"], l: "9 secondes",
-      p: [
-        "Prépare : écris « Relevé de notes » en haut d'une feuille, sans ton nom ni ton numéro. Plie des chaussettes par paires dans un tiroir.",
-        "Cadre : téléphone calé au-dessus de la table, objectif vers le bas.",
-        "Clip 1 · 3 secondes : la feuille seule. Texte « Mon relevé de notes ». Pause.",
-        "Clip 2 · 4 secondes : le tiroir à chaussettes. Texte « Mon placard à chaussettes ». Pause.",
-        "Clip 3 · 2 secondes : le tiroir fermé par une main. Texte « Priorités. »",
-        "Légende courte, un seul emoji. Poste le soir, entre 18 h et 21 h."
-      ],
-      k: "Le test : aucune vraie information (nom, numéro, établissement) n'est lisible sur la feuille." } },
-  { f: "Clin d'œil", p: "tt", t: "Parce que mes notes", h: "Parce que mes chaussettes colorées me rapporteront toujours plus que mes notes",
-    s: ["Plan fixe sur des chaussettes colorées, le texte est à l'écran dès la première image.", "Rien ne bouge pendant 8 secondes.", "La vidéo boucle sur le début."],
-    c: "On verra bien. 🧦", g: ["#etudiante", "#chaussettes", "#humour"], a: "Complète : « Parce que mes… me rapporteront toujours plus que mes… »", r: 1,
-    n: "Ne dis jamais combien ni comment. Si on te le demande, ne réponds pas : dis-le à Timothée.",
-    w: "La phrase provocante de la vidéo de référence, en version plus douce.",
-    x: { m: ["Des chaussettes de couleurs vives", "Un sol uni", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: oneShot("des chaussettes de couleurs vives aux pieds", ["Parce que mes chaussettes colorées me rapporteront toujours plus que mes notes"]),
-      k: "Le test : cache la phrase avec ta main, la vidéo doit encore avoir l'air d'une blague d'étudiante." } },
+var TAGS = ["#vendeuse2iep", "#fan2iep", "#ieps"];
 
-  /* ---------- Idées tout public (8) ---------- */
-  { f: "Vote", p: "tt", t: "Red flag ou green flag", h: "Mocassins avec chaussettes apparentes : red flag ou green flag ?",
-    s: ["Plan fixe sur des mocassins avec des chaussettes bien visibles.", "Texte « Red flag ou green flag ? » dès la première image.", "À 5 secondes : « Dis-le en commentaire »."],
-    c: "Dis-moi tout. 🚩", g: ["#redflag", "#greenflag", "#mode"], a: "Red flag ou green flag ? Réponds en un mot.", r: 0,
-    w: "Une question à deux réponses : tout le monde a un avis et veut le dire.",
-    x: { m: ["Des mocassins (ou des chaussures plates de ville)", "Des chaussettes visibles au-dessus", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: oneShot("des mocassins avec des chaussettes bien visibles au-dessus, ou tes chaussures de ville avec des chaussettes colorées", ["Mocassins avec chaussettes apparentes : red flag ou green flag ?", "Dis-le en commentaire"]),
-      k: "Le test : la question tient en une ligne et on peut y répondre en un mot." } },
-  { f: "Vote", p: "tt", t: "Ton signe, ta paire", h: "Dis-moi ton signe astro, je te dis ta paire",
-    s: ["Quatre paires, une par élément : feu, terre, air, eau.", "Chaque paire reste 2 secondes avec le nom de l'élément et les signes concernés.", "Dernier texte : « Écris ton signe en commentaire. »"],
-    c: "Je ne me trompe jamais. ✨", g: ["#astro", "#signeastro", "#chaussures"], a: "Écris ton signe en commentaire.", r: 0,
-    w: "Chacun écrit son signe : beaucoup de commentaires faciles à laisser.",
-    x: { m: ["4 paires : baskets, bottines, mocassins, chaussettes cosy (ou 4 paires différentes)", "Un sol uni", "Un livre pour caler le téléphone"], l: "9 secondes",
+/* Fabrique une idée à pose simple. o : texts, d, n, occ, tags */
+function mk(f, t, h, pose, c, a, w, o) {
+  o = o || {};
+  var P = POSES[pose];
+  var idea = {
+    f: f, p: "tt", t: t, h: h, s: P.s.slice(), c: c,
+    g: (o.tags || []).concat(TAGS), a: a, r: 0, w: w,
+    x: { m: P.m.slice(), l: "8 secondes", p: shot(P, o.texts || [h]), k: "Le test : le texte se lit dès la première image, et rien ne bouge à part ton geste." }
+  };
+  if (o.d) { idea.d = o.d; }
+  if (o.n) { idea.n = o.n; }
+  if (o.occ) { idea.occ = o.occ; }
+  return idea;
+}
+
+var DM_AVENT = "Écris-moi AVENT en message privé.";
+
+var BANK = [
+  /* ---------- Appel aux fans (9) : les phrases qui font réagir la communauté ---------- */
+  mk("Appel aux fans", "Les fan2iep, vous êtes où ?", "Les fan2iep, le calendrier de l'avent démarre le 1er à 00h00. Vous êtes où ?", "canape",
+    "Le 1er à 00h00. 🎄", "Réponds « présent » en commentaire.",
+    "La question que la communauté connaît, avec la date du calendrier : les fans répondent présent.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "On est le 1er du mois", "On est bientôt le 1er : le calendrier de l'avent de ieps démarre à 00h00 😌", "frotter",
+    "Il démarre à 00h00. 😌", "Dis-moi que tu es là pour le 1er.",
+    "Le 1er du mois est le rendez-vous de la communauté : ici, il lance le calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "J'ai hâte d'être en début de mois", "J'ai hâte d'être le 1er : mon calendrier de l'avent de ieps démarre, vous êtes où les fan2iep ?", "lit",
+    "Plus que quelques jours. ⏳", "Dis-moi que tu comptes les jours.",
+    "Une attente partagée autour d'une date précise : on se reconnaît et on commente.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "Mes crush", "Mes crush à moi, c'est les fan2iep. Ils ont leur calendrier de l'avent le 1er 💕", "canape",
+    "Le 1er, c'est pour eux. 💕", "Dis-moi que tu es un crush.",
+    "Un compliment direct à la communauté, avec la promesse du calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "Mes acheteur2iep sont les meilleurs", "Mes acheteur2iep sont les meilleurs : c'est pour eux que j'ai fait le calendrier de l'avent 🥹", "creme",
+    "Ce calendrier, c'est pour vous. ❤️", "Dis merci en commentaire.",
+    "La reconnaissance fidélise : ceux qui se sentent visés réservent leur calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "La pédi offerte", "Pédi de Noël pour le calendrier de l'avent : rouge, bordeaux ou doré ? 💅", "vernis",
+    "Elle sera faite pour le 1er. 💅", "Vote : 1 rouge, 2 bordeaux, 3 doré.",
+    "Un vote simple : on commente en une seconde, et ça annonce le calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"], texts: ["Pédi de Noël : 1 rouge, 2 bordeaux, 3 doré ?", "Pour le calendrier de l'avent. 🎄"] }),
+  mk("Appel aux fans", "Moi quand un fan2iep m'écrit", "Moi quand un fan2iep m'écrit « AVENT » en DM 🙈", "lit",
+    "Réaction automatique. 🙈", "Écris AVENT si tu es de la partie.",
+    "Une réaction qu'on reconnaît : elle donne envie d'écrire le mot.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "Je suis la meilleure", "Vous en connaissez beaucoup, des vendeuses qui font un calendrier de l'avent de ieps ? Je suis la meilleure, je sais.", "marche",
+    "Je suis la meilleure, je sais. 😌", "Dis-moi si tu es d'accord.",
+    "Une phrase d'assurance qui fait réagir les fans comme les autres vendeuses.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Appel aux fans", "Mes fan2iep à minuit", "Les fan2iep à minuit, le 1er, quand le calendrier de l'avent s'ouvre", "frotter",
+    "Le 1er à minuit. 🌙", "Dis-moi si tu seras réveillé.",
+    "Une scène de nuit que la communauté connaît, avec la date de départ.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+
+  /* ---------- Calendrier de l'avent (14) : le sujet du mois ---------- */
+  mk("Avent", "Vous en connaissez beaucoup ?", "Vous en connaissez beaucoup, des vendeuses qui proposent un calendrier de l'avent de ieps ?", "frotter",
+    "Je suis la meilleure, je sais. 😌", "Dis-moi si tu en connais une autre.",
+    "Une question qui flatte : les fans citent d'eux-mêmes ta valeur.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Il est prêt", "Le calendrier de l'avent de ieps est prêt. Il démarre le 1er à 00h00.", "guirlande",
+    "Il est prêt. 🎄", "Dis-moi que tu seras là à minuit.",
+    "Une annonce simple avec une date précise : elle donne un rendez-vous.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Vous êtes nombreux à l'attendre", "Vous êtes nombreux à l'attendre en DM… 👀", "vernis",
+    "Merci d'attendre avec moi. ❤️", "Dis-moi que tu fais partie des nombreux.",
+    "La preuve sociale vécue : on veut faire partie de ceux qui attendent.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "24 cases, zéro chocolat", "24 cases. 24 jours. 0 chocolat.", "canape",
+    "Un calendrier différent. 🎄", "Dis-moi ce que tu espères trouver.",
+    "Une formule courte qui se retient : elle se répète facilement.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Pas pour tout le monde", "Mon calendrier de l'avent n'est pas pour tout le monde. Il est pour les fan2iep.", "marche",
+    "Pour les fan2iep. 💌", "Dis-moi si c'est pour toi.",
+    "Une phrase d'exclusivité : ceux qui se sentent concernés répondent.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "À minuit, personne ne dort", "Le 1er à minuit, les fan2iep ne dorment pas.", "reveil",
+    "Mettez un réveil. ⏰", "Dis-moi si tu mets un réveil.",
+    "Un compte à rebours de minuit : on revient vérifier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Pourquoi ils attendent décembre", "Pourquoi mes acheteur2iep attendent décembre", "lit",
+    "Décembre, enfin. ❄️", "Dis-moi la vraie raison.",
+    "Une question qui donne envie de lire la réponse en commentaire.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Mon calendrier contre le vôtre", "Mon calendrier de l'avent vs celui que tu as acheté au supermarché", "chaussettes",
+    "Le mien ne fond pas. 😌", "Dis-moi ce que contenait le tien.",
+    "Une comparaison drôle : on commente son propre calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Le meilleur cadeau de Noël", "Le meilleur cadeau de Noël : un calendrier de l'avent de ieps", "guirlande",
+    "Noël commence le 1er. 🎁", "Dis-moi à qui tu l'offrirais.",
+    "Un cadeau, un thème de saison que tout le monde connaît.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Qui l'a déjà ?", "Qui a déjà réservé son calendrier de l'avent de ieps ? 🎄", "frotter",
+    "Les premiers servis sont les premiers contents. 🎄", "Dis-moi si tu l'as déjà.",
+    "Une question simple : on répond oui, on répond non, on s'engage.", { d: DM_AVENT, tags: ["#calendrierdelavent"], n: "Ne dis jamais combien il en reste. Pas de fausse rareté." }),
+  mk("Avent", "La case du jour", "Chaque jour, une case. Chaque case, une surprise.", "chaussettes",
+    "Une case par jour. 🎁", "Dis-moi quelle case tu attends le plus.",
+    "Le principe du calendrier dit en une phrase : facile à comprendre.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "Ceux qui savent", "Ceux qui l'ont déjà en DM savent de quoi je parle", "vernis",
+    "Ils savent. 🤫", "Dis-moi si tu sais.",
+    "Un secret partagé avec une partie de ta communauté : les autres veulent savoir.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "J-7", "Une semaine avant le calendrier de l'avent de ieps. Vous êtes prêts ?", "talons",
+    "Compte à rebours lancé. ⏳", "Dis-moi si tu es prêt.",
+    "Un compte à rebours clair : il revient dans les vidéos suivantes.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Avent", "La veille au soir", "La veille d'un calendrier de l'avent de ieps, ça ressemble à ça", "lit",
+    "Tension maximale. 😅", "Dis-moi comment tu t'y prépares.",
+    "Une scène drôle de la veille : on se reconnaît.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+
+  /* ---------- Pédi et soins (4) ---------- */
+  mk("Pédi", "Nouvelle pédi", "Nouvelle pédi pour le calendrier de l'avent des fan2iep", "vernis",
+    "Fraîchement faite pour le 1er. 💅", "Dis-moi la couleur que tu aurais choisie.",
+    "Une nouveauté visible reliée au calendrier : on regarde pour voir la couleur.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Pédi", "Rouge ou bordeaux", "Pédi de Noël : rouge, bordeaux ou doré ? Elle ouvrira le calendrier de l'avent.", "vernis",
+    "Vote ouvert. 🎄", "Vote : 1 rouge, 2 bordeaux, 3 doré.",
+    "Un vote à trois choix : une action simple pour commenter.", { d: DM_AVENT, tags: ["#calendrierdelavent"], texts: ["Pédi de Noël : 1 rouge, 2 bordeaux, 3 doré ?", "Elle ouvre le calendrier de l'avent. 🎄"] }),
+  mk("Soin", "Après une journée en talons", "Mes ieps se préparent pour le calendrier de l'avent : soin du soir des fan2iep", "creme",
+    "Le soin avant le 1er. 🌙", "Dis-moi ton rituel du soir.",
+    "Un rituel de soin relié à la date : on reste jusqu'au geste final.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Soin", "La pédi du dimanche", "Dimanche : pédi toute neuve avant le calendrier de l'avent de ieps", "vernis",
+    "Prête pour décembre. 🤍", "Dis-moi ce que tu fais le dimanche.",
+    "Un rituel qui se répète, relié au calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+
+  /* ---------- Ambiance de fêtes (3) ---------- */
+  mk("Ambiance", "Les guirlandes sont installées", "Les guirlandes sont installées. Le calendrier de l'avent aussi.", "guirlande",
+    "L'ambiance est posée. ✨", "Dis-moi si ton sapin est prêt.",
+    "Un décor de saison qui annonce le calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Ambiance", "Plaid, guirlande, calendrier", "Plaid, guirlande, calendrier de l'avent de ieps : décembre version fan2iep", "canape",
+    "Décembre, version cosy. 🎄", "Dis-moi ton indispensable d'hiver.",
+    "Une ambiance cosy qui parle à tout le monde, avec le calendrier.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Ambiance", "Chaussettes de Noël", "Les chaussettes de Noël de la vendeuse2iep : le calendrier de l'avent démarre le 1er", "chaussettes",
+    "Prêtes pour décembre. 🧦", "Dis-moi quelle paire tu préfères.",
+    "Un accessoire de saison : les fans commentent leur préférée.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+
+  /* ---------- Réponses aux messages (2) ---------- */
+  mk("Réponse", "Vous me demandez tous la même chose", "Vous me demandez tous la même chose en DM : oui, le calendrier de l'avent démarre bien le 1er à 00h00", "marche",
+    "Oui, c'est bien le 1er. 🎄", "Pose-moi ta question en commentaire.",
+    "Répondre à la question que tout le monde pose : ça rassure et ça fait revenir.", { d: DM_AVENT, tags: ["#calendrierdelavent"] }),
+  mk("Réponse", "Je réponds à tous", "Je réponds à tous les fan2iep qui m'écrivent AVENT. Oui, à tous.", "canape",
+    "À tous. ❤️", "Écris AVENT si tu veux ton calendrier.",
+    "Une promesse de proximité : elle encourage les messages.", { d: DM_AVENT, tags: ["#calendrierdelavent"] })
+];
+
+/* Les idées « Insta seulement » (carrousels) sont ajoutées dans bank2.js. */
+
+/* Story du jour : un type par jour de la semaine (0 = dimanche), 3 variantes qui tournent chaque semaine. */
+var STORIES = {
+  1: { type: "Compte à rebours", label: "Compte à rebours", why: "Le sticker compte à rebours fait revenir : chaque abonné qui l'active reçoit une alerte.",
+    v: [
+      { t: "Le compteur du calendrier", s: "Fond bordeaux ou crème, texte « Calendrier de l'avent de ieps » et le sticker compte à rebours réglé sur le 1er décembre à 00h00.", cta: "Sticker compte à rebours. Texte : « Active le rappel »." },
+      { t: "Plus que quelques jours", s: "Photo d'un pied près d'une guirlande, cadre serré. Texte : « Bientôt minuit pour les fan2iep. »", cta: "Sticker compte à rebours, plus le texte « Écris-moi AVENT »." },
+      { t: "Réveil mis", s: "Photo d'un réveil à côté de tes pieds sur un plaid. Texte : « Et toi, ton réveil est mis ? »", cta: "Sticker sondage : Oui / Je dors." }
+    ] },
+  2: { type: "Appel à l'action", label: "Story CTA", why: "Ces interactions disent à Instagram que le compte vaut la peine d'être montré.",
+    v: [
+      { t: "Boîte à questions", s: "Photo de pieds sur un plaid, cadre serré. Sticker « Pose-moi une question » avec le texte : « Une question sur le calendrier ? »", cta: "Sticker question, plus le texte « Écris-moi AVENT en message ». Réponds à trois questions en story demain." },
+      { t: "Sondage A ou B", s: "Deux couleurs de vernis côte à côte, sticker sondage « A » et « B ». Texte : « Laquelle pour la case 1 ? »", cta: "Sticker sondage, plus le texte « Écris-moi ton choix en message ». Utilise le résultat dans un post." },
+      { t: "Curseur d'impatience", s: "Photo d'un pied et d'une guirlande, sticker curseur emoji avec le texte : « Ton impatience pour le 1er ? »", cta: "Sticker curseur, plus le texte « Dis-moi pourquoi en message »." }
+    ] },
+  3: { type: "Pédi", label: "Pédi", why: "La pédi est le sujet le plus naturel de la niche : elle se montre sans rien dire d'autre.",
+    v: [
+      { t: "Nuancier en story", s: "Trois flacons alignés (rouge, bordeaux, doré) sur une serviette claire. Sondage à trois choix.", cta: "Sondage : quelle couleur pour la semaine prochaine ?" },
+      { t: "Flacon du jour", s: "Photo du flacon utilisé aujourd'hui, avec le nom de la teinte écrit à la main.", cta: "Question : « Une couleur à tester ? »" },
+      { t: "La pédi avant / après", s: "Deux slides : un pied sans vernis, puis le même pied avec le vernis fini. Cadre serré, aucun visage.", cta: "Sticker curseur : « Tu valides ? »" }
+    ] },
+  4: { type: "Fan2iep", label: "Fan2iep", why: "On parle à la communauté avec ses mots : elle répond.",
+    v: [
+      { t: "Les fan2iep, vous êtes où ?", s: "Fond crème ou bordeaux, texte « Les fan2iep, vous êtes où ? » Rien d'autre à l'écran.", cta: "Sticker emoji curseur ou question « Présent ». Garde les réponses pour une story de remerciement." },
+      { t: "Merci aux fan2iep", s: "Photo d'un pied sur un plaid, texte « Merci d'être là, vraiment. »", cta: "Sticker question : « Un mot pour moi ? »" },
+      { t: "Qui attend décembre ?", s: "Photo d'une guirlande en fond, texte « Qui attend décembre ? »", cta: "Sticker sondage : « Moi / Pas moi »." }
+    ] },
+  5: { type: "Coulisses", label: "Coulisses", why: "Les coulisses donnent un ton personnel et préparent le week-end.",
+    v: [
+      { t: "Le décor du calendrier", s: "Photo du coin de tournage : plaid bordeaux, guirlande, ruban rouge. Aucun pied visible. Texte : « Le décor est prêt. »", cta: "Sticker compte à rebours vers le prochain post." },
+      { t: "Le tri des chaussettes", s: "Photo d'une pile de chaussettes de Noël. Texte : « Choisir les paires, difficile. »", cta: "Sondage : quelle paire pour la case 3 ?" },
+      { t: "Matériel et accessoires", s: "Photo des accessoires : flacons de vernis, crème, plaid, guirlande. Texte : « Une partie du décor. »", cta: "Question : « Quel décor vous voulez voir ? »" }
+    ] },
+  6: { type: "Repartage", label: "Repartage", why: "Repartager le meilleur post de la semaine renforce sa portée.",
+    v: [
+      { t: "Le post de la semaine", s: "Repartage en story du post qui a le mieux marché, avec le sticker « Nouveau post ». Texte : « Votre préféré de la semaine ? »", cta: "Sticker question : « Votre préféré ? »" },
+      { t: "Résumé en trois slides", s: "Trois captures des trois posts de la semaine, un mot chacune.", cta: "Sondage : « Lequel refaire ? »" },
+      { t: "Merci et demande", s: "Slide de remerciement avec une question : « Que voulez-vous voir cette semaine ? »", cta: "Sticker question. Note les idées pour le prochain tournage." }
+    ] },
+  0: { type: "Dimanche cosy", label: "Cosy", why: "Une ambiance calme, régulière, qui fait revenir chaque semaine.",
+    v: [
+      { t: "Plaid et thé", s: "Photo d'un plaid, d'une tasse, d'une bougie. Les pieds peuvent apparaître, en plan large seulement.", cta: "Sticker emoji curseur : « Votre ambiance de dimanche ? »" },
+      { t: "Préparer la semaine", s: "Photo de ton coin de tournage rangé, flacons alignés. Texte : « La semaine est prête. »", cta: "Sondage : « Quelle couleur ouvre la semaine ? »" },
+      { t: "Playlist du dimanche", s: "Capture ou photo d'un fond calme, sticker musique avec ton morceau du dimanche.", cta: "Question : « Votre son du dimanche ? »" }
+    ] }
+};
+
+var RULES = [
+  { t: "Une partie des pieds, jamais le visage", d: "Cadre serré sur les pieds et les chevilles, jamais plus haut que le mollet. Pas de visage, pas de reflet, pas de nom, pas de lieu reconnaissable." },
+  { t: "Gestes simples, jamais suggestifs", d: "Marcher, se frotter les pieds, faire du vernis, mettre de la crème. Rien d'insistant, pas de gros plan sur la plante, aucune pose ni musique à connotation sexuelle." },
+  { t: "Les mots codés, écrits exactement comme ça", d: "ieps, fan2iep, acheteur2iep, vendeuse2iep. Jamais le mot « pieds » dans le texte, ni de mot explicite, ni de hashtag sensible." },
+  { t: "Ni prix, ni lien, ni plateforme", d: "Aucun prix, aucun site, aucune application de paiement ou d'abonnement, ni dans la vidéo, ni dans la légende, ni dans les commentaires." },
+  { t: "Un seul appel à l'action : le message privé", d: "« Écris-moi AVENT en message privé ». Les messages reçus sont pour Timothée : ne réponds pas, ne promets rien." },
+  { t: "Beaucoup de posts, jamais le même", d: "Deux posts par jour : change toujours la pose, la lumière ou le texte. Ne reposte jamais la même vidéo, et ne mets pas plus de 3 posts par jour." },
+  { t: "TikTok et Instagram, le même jour", d: "Tout se poste sur les deux : les vidéos en Reel, les carrousels en mode photo sur TikTok. Mêmes images, même ordre." },
+  { t: "Commentaires sous contrôle", d: "Épingle un commentaire neutre, supprime les messages explicites, ne réponds pas aux demandes de contenu : dis-les-lui." },
+  { t: "Vidéo supprimée, vidéo perdue", d: "Ne la reposte jamais telle quelle. Préviens-le, il vérifiera le compte." }
+];
+
+var TIPS = [
+  "Écris l'accroche à l'écran dès la première image : c'est elle qui fait rester.",
+  "Vise 8 secondes : assez court pour être revu en boucle.",
+  "Même pose, même lumière chaude (bordeaux, crème) : le compte doit être reconnaissable en une seconde.",
+  "Termine sur un plan qui rappelle le premier, pour que la boucle passe inaperçue."
+];
+
+/* Banque d'idées, partie 2 : carrousels et publications Insta seulement, puis les idées à date fixe.
+   p = "ig" : carrousel ou photo avec un gros titre, publié sur Instagram ET TikTok (mode photo). p = "tt" : TikTok + Insta.
+   Les carrousels reprennent le style d'etacademy.fr : couverture courte qui donne envie de swiper, diapos très lisibles,
+   dernière diapo = « Écris-moi AVENT en message privé ». */
+
+/* Fabrique un carrousel Insta : slides = texte exact de chaque diapo, dans l'ordre. */
+function car(f, t, cover, slides, photo, desc, tags, o) {
+  o = o || {};
+  var p = [
+    "Format : 1080 × 1350 px, vertical. Même fond (crème ou bordeaux), même police sur toutes les diapos. Titre en lettres serif, texte court en dessous.",
+    "Photo de couverture : " + photo
+  ], i;
+  for (i = 0; i < slides.length; i++) {
+    p.push("Diapo " + (i + 1) + (i === 0 ? " (couverture)" : (i === slides.length - 1 ? " (dernière)" : "")) + " : « " + slides[i] + " »");
+  }
+  p.push("Publie avec la description ci-dessous, sans lien ni prix.");
+  var idea = {
+    f: f, p: "ig", t: t, h: cover,
+    s: [slides.length + " diapos, même fond et même police.", "Couverture : une photo serrée sur une partie des pieds, sans visage, et le titre en gros.", "Dernière diapo : « Écris-moi AVENT en message privé »."],
+    c: desc, g: tags.concat(["#fan2iep", "#vendeuse2iep"]), a: "Demande en légende : « Écris-moi AVENT en message privé ».", r: 0,
+    d: o.d || DM_AVENT,
+    w: o.w || "Un carrousel se swipe : chaque diapo donne envie de voir la suivante, et c'est ce qui fait rester.",
+    x: {
+      m: ["Une photo de couverture, cadre serré, sans visage", "Un fond uni crème ou bordeaux pour les autres diapos", "Canva ou l'outil texte d'Instagram"],
+      l: slides.length + " diapos",
+      p: p,
+      k: "Le test : la couverture se comprend en une seconde, sans lire la suite."
+    }
+  };
+  if (o.occ) { idea.occ = o.occ; }
+  if (o.n) { idea.n = o.n; }
+  return idea;
+}
+
+/* Fabrique une publication photo + gros titre (Insta seulement), style couverture etacademy. */
+function photoPost(f, t, h, photo, desc, tags, o) {
+  o = o || {};
+  var idea = {
+    f: f, p: "ig", t: t, h: h,
+    s: ["Une seule photo, cadre serré sur une partie des pieds, sans visage.", "Le titre en gros, en deux lignes, sur la photo.", "Description courte, avec l'appel à l'action."],
+    c: desc, g: tags.concat(["#fan2iep", "#vendeuse2iep"]), a: "Demande en légende : « Écris-moi AVENT en message privé ».", r: 0,
+    d: o.d || DM_AVENT,
+    w: o.w || "Un gros titre sur une belle photo se lit en une seconde : c'est le format qui marche sur Instagram.",
+    x: {
+      m: ["Une photo cadre serré, sans visage", "Une ambiance bordeaux ou crème, lumière chaude", "Canva ou l'outil texte d'Instagram"],
+      l: "1 photo",
       p: [
-        "Prépare les 4 paires dans l'ordre : baskets (feu), bottines (terre), mocassins (air), chaussettes cosy (eau).",
-        "Cadre : téléphone calé au sol, du genou au sol. Ne le touche plus.",
-        "Pour chaque paire : arrête l'enregistrement, change de chaussures hors cadre (garde toujours des chaussettes ou des chaussures à l'écran), reprends ta place, filme 2 secondes.",
-        "Textes : « Feu : Bélier, Lion, Sagittaire » ; « Terre : Taureau, Vierge, Capricorne » ; « Air : Gémeaux, Balance, Verseau » ; « Eau : Cancer, Scorpion, Poissons ».",
-        "Dernier texte, 1 seconde : « Écris ton signe en commentaire. »"
+        "Photo : " + photo,
+        "Écris le titre en gros sur la photo : « " + h + " ». Lettres serif blanches ou crème, deux lignes maximum, au tiers haut de l'image.",
+        "Vérifie qu'aucun visage, reflet ou nom n'apparaît sur la photo.",
+        "Publie avec la description ci-dessous, sans lien ni prix."
       ],
-      k: "Le test : chaque paire reste à l'écran 2 secondes, pas moins, pour qu'on ait le temps de lire les signes." } },
-  { f: "Sketch", p: "tt", t: "Pour la copine aux baskets", h: "Envoie ça à la copine qui a déjà 12 paires de baskets blanches",
-    s: ["Plan fixe vu du dessus sur quatre paires de baskets blanches alignées.", "Un compteur à l'écran monte de 1 à 12 pendant la vidéo.", "Dernier texte : « Tu sais qui. »"],
-    c: "Tu sais qui. 😅", g: ["#baskets", "#copine", "#humour"], a: "Tag la copine concernée.", r: 0,
-    w: "Une vidéo qui donne envie d'être envoyée à une amie : c'est le signal le plus utile sur Instagram.",
-    x: { m: ["Quatre paires de baskets blanches (ou claires)", "Un sol clair", "Un livre pour caler le téléphone au-dessus"], l: "8 secondes",
-      p: [
-        "Prépare : aligne tes paires de baskets blanches, côte à côte, sur le sol.",
-        "Cadre : téléphone calé au-dessus, objectif vers le bas, sur un dossier de chaise ou un livre. On voit toutes les paires.",
-        "Appuie sur Enregistrer et reste immobile 8 secondes. Rien ne bouge dans le cadre.",
-        "Texte 1, de 0 à 8 s, en haut : « Envoie ça à la copine qui a déjà 12 paires de baskets blanches ».",
-        "Compteur : ajoute des chiffres qui défilent de 1 à 12 en bas du cadre, avec l'outil Texte, en les décalant d'une demi-seconde chacun.",
-        "Légende courte, un seul emoji. Poste le soir, entre 18 h et 21 h."
-      ],
-      k: "Le test : on reconnaît tout de suite quelqu'un à qui l'envoyer." } },
-  { f: "Vote", p: "tt", t: "Bug ou style", h: "Chaussettes dépareillées : bug ou style ?",
-    s: ["Plan fixe sur deux chaussettes différentes aux pieds.", "Texte « Bug ou style ? » dès la première image.", "À 5 secondes : « Réponds en un mot. »"],
-    c: "Je ne dis rien. 🤷", g: ["#chaussettes", "#style", "#humour"], a: "Bug ou style ? Réponds en un mot.", r: 0,
-    w: "Une question à deux réponses : chacun défend son camp.",
-    x: { m: ["Deux chaussettes différentes (une rayée, une unie)", "Un sol uni", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: oneShot("deux chaussettes qui ne vont pas ensemble aux pieds", ["Chaussettes dépareillées : bug ou style ?", "Réponds en un mot"]),
-      k: "Le test : on voit bien les deux chaussettes différentes dès la première image." } },
-  { f: "Sketch", p: "tt", t: "Les 3 niveaux de retard", h: "Les 3 niveaux de retard : le look",
-    s: ["Niveau 1 : baskets propres, jean, « 5 minutes de retard ».", "Niveau 2 : baskets, jogging, « 15 minutes de retard ».", "Niveau 3 : bottes sur un pantalon de pyjama, « Je suis en bas »."],
-    c: "On a toutes été au niveau 3. 😅", g: ["#retard", "#humour", "#ootd"], a: "Tu es à quel niveau aujourd'hui ?", r: 0,
-    w: "Une situation que tout le monde connaît, en trois étapes : on reste jusqu'au niveau 3.",
-    x: { m: ["Des baskets et un jean", "Un jogging", "Des bottes et un pantalon de pyjama", "Un livre pour caler le téléphone"], l: "9 secondes",
-      p: [
-        "Cadre : téléphone calé au sol, du genou au sol. Ne le touche plus pendant les trois niveaux.",
-        "Niveau 1 · 3 secondes : baskets et jean, immobile. Texte « Niveau 1 : 5 minutes de retard ». Pause.",
-        "Change de tenue hors cadre, reviens à la même place.",
-        "Niveau 2 · 3 secondes : baskets et jogging. Texte « Niveau 2 : 15 minutes de retard ». Pause.",
-        "Niveau 3 · 3 secondes : bottes sur pantalon de pyjama. Texte « Niveau 3 : je suis en bas ».",
-        "Colle les trois clips avec un cut net. Légende courte, un seul emoji."
-      ],
-      k: "Le test : le cadre est identique aux trois niveaux, seule la tenue change." } },
-  { f: "Routine", p: "tt", t: "Valise de week-end", h: "Ce que j'emporte pour un week-end : 6 paires de chaussettes, 4 de chaussures",
-    s: ["Plan fixe vu du dessus sur une valise ouverte et vide.", "Une main y pose les paires une à une, un compteur monte.", "Dernier texte : « Et un seul pull. »"],
-    c: "Les priorités sont claires. 🧳", g: ["#valise", "#weekend", "#humour"], a: "Combien de paires pour un week-end ?", r: 0,
-    w: "Une question de chiffre : on compare avec soi-même et on répond.",
-    x: { m: ["Une valise ou un grand sac", "4 paires de chaussures", "6 paires de chaussettes", "Un livre ou un dossier de chaise pour caler le téléphone au-dessus"], l: "10 secondes",
-      p: [
-        "Prépare : valise ouverte et vide sur le sol, les paires à côté, hors cadre.",
-        "Cadre : téléphone calé au-dessus de la valise, objectif vers le bas. On voit l'intérieur de la valise.",
-        "Appuie sur Enregistrer : ta main pose les paires une à une, rapidement, sans visage. Une paire toutes les secondes environ.",
-        "Texte : un compteur « 1 paire », « 2 paires »… qui change à chaque paire (outil Texte, en haut).",
-        "Dernier plan, 2 secondes : la valise pleine, texte « Et un seul pull. »",
-        "Légende courte, un seul emoji."
-      ],
-      k: "Le test : les mains sont rapides et la valise se remplit visiblement." } },
-  { f: "Vote", p: "tt", t: "Les baskets blanches, surcotées", h: "Avis impopulaire : les baskets blanches, c'est surcoté",
-    s: ["Plan fixe sur des baskets blanches, texte « Avis impopulaire » dès la première image.", "À 4 secondes : « Je les porte tous les jours. »", "La vidéo boucle sur le début."],
-    c: "Je l'ai dit. 👟", g: ["#avisimpopulaire", "#baskets", "#mode"], a: "Team baskets blanches ou pas ?", r: 0,
-    w: "Un avis qui divise : chacun répond pour défendre son camp.",
-    x: { m: ["Des baskets blanches", "Un sol uni", "Un livre pour caler le téléphone"], l: "8 secondes",
-      p: oneShot("des baskets blanches aux pieds", ["Avis impopulaire : les baskets blanches, c'est surcoté", "(Je les porte tous les jours)"]),
-      k: "Le test : la deuxième phrase contredit la première, c'est ce qui fait sourire." } },
-  { f: "Astuce", p: "tt", t: "Bottes mouillées", h: "Bottes mouillées : l'astuce que je répète chaque hiver",
-    s: ["Plan fixe sur des bottes mouillées posées près de la porte.", "Texte « 1. Du papier journal froissé à l'intérieur » puis « 2. Loin du radiateur » puis « 3. Une nuit ».", "Dernier plan : les bottes sèches, texte « Enregistre pour cet hiver. »"],
-    c: "Enregistre-la pour cet hiver. 🥾", g: ["#astuce", "#bottes", "#hiver"], a: "Enregistre pour cet hiver.", r: 0,
-    w: "Une astuce utile : les gens l'enregistrent, c'est un signal fort.",
-    x: { m: ["Des bottes mouillées", "Du papier journal ou du papier absorbant froissé", "Un coin loin du radiateur"], l: "10 secondes",
-      p: [
-        "Prépare : des bottes mouillées (ou juste rincées), du papier journal que tu froisses en boules.",
-        "Cadre : téléphone calé au sol, du genou au sol sur un fond uni. Ne le touche plus.",
-        "Plan 1, 3 s : les bottes seules. Texte « Bottes mouillées ? »",
-        "Plan 2, 4 s : tes mains remplissent les bottes de papier journal froissé. Texte « 1. Du papier journal à l'intérieur ».",
-        "Plan 3, 3 s : les bottes posées à l'écart d'un radiateur. Texte « 2. Loin du radiateur, une nuit entière ». Ajoute « Enregistre pour cet hiver ».",
-        "Légende courte, un seul emoji."
-      ],
-      k: "Le test : l'astuce est utile même sans la vidéo, c'est pour ça qu'on l'enregistre." } }
+      k: "Le test : on lit le titre en une seconde, même sans zoomer."
+    }
+  };
+  if (o.occ) { idea.occ = o.occ; }
+  return idea;
+}
+
+/* ---------- Carrousels et photos à date libre (Insta seulement) ---------- */
+BANK.push(
+  car("Carrousel", "Tu vas vouloir être là", "Tu vas vouloir\nêtre là… 👀",
+    ["Tu vas vouloir\nêtre là… 👀", "Le 1er décembre approche.\nEt moi, je suis presque prête.", "Imagine découvrir le calendrier\nquand tout le monde en parle déjà…\nEt avoir raté le premier jour.", "J'ai pensé le calendrier\ncomme un rendez-vous quotidien.", "1. Tu m'envoies AVENT.\n2. Je te présente le concept.\n3. Tu décides si tu veux participer.", "Ne découvre pas le concept trop tard.", "Les fan2iep,\nje vous attends en DM.\nÉcris-moi AVENT 🎁"],
+    "gros plan sur un talon bordeaux, une main qui tient un ruban rouge, lumière tamisée, fond crème flouté.",
+    "Je ne vais pas tout dévoiler maintenant… 🤭\nMais les amoureux des petites surprises de décembre vont comprendre.\nÉcris-moi AVENT en message privé si tu veux les informations.",
+    ["#calendrierdelavent", "#avent2026", "#noel2026"]),
+  car("Carrousel", "Et si tu ouvrais le premier ?", "Et si tu ouvrais\nle premier ? 🎀",
+    ["Et si tu ouvrais\nle premier ? 🎀", "1er décembre.\n00h00.\nLe début de 24 jours.", "AVANT : tu regardes décembre passer.\nAPRÈS : tu as un rendez-vous chaque jour.", "Un concept pensé pour durer\ntout le mois de décembre.", "1. Tu me demandes AVENT en DM.\n2. Tu lis les modalités.\n3. Tu commences quand tu veux.", "Le premier jour ne va pas attendre.", "Alors, tu viens ?\nÉcris-moi AVENT\nen message privé ❤️"],
+    "une chaussure à talon rouge partiellement cachée sous un ruban de satin, un paquet crème ouvert derrière. Cadrage très serré.",
+    "J'adore l'idée de commencer décembre avec quelque chose à attendre chaque jour. 🥹\nTu veux les infos ? Écris-moi AVENT en message privé.",
+    ["#calendrierdelavent", "#avent2026", "#noel"]),
+  car("Carrousel", "Les questions qu'on me pose en DM", "Les 5 questions\nqu'on me pose en DM",
+    ["Les 5 questions\nqu'on me pose en DM", "« C'est quand ? »\nLe 1er décembre à 00h00.", "« Ça dure combien de temps ? »\n24 jours, du 1er au 24 décembre.", "« Comment ça marche ? »\nTu m'écris AVENT, je t'explique tout en privé.", "« C'est discret ? »\nOui. Tout se passe en message privé.", "« Et si j'ai une autre question ? »\nÉcris-moi en message privé, je réponds à tous.", "Écris-moi AVENT\nen message privé ❤️"],
+    "un pied sur un plaid bordeaux, cadre serré, une lumière chaude de guirlande en fond.",
+    "Vous me posez tous les mêmes questions, alors voilà les réponses. 😌\nLa suite se passe en message privé : écris-moi AVENT.",
+    ["#calendrierdelavent", "#faq", "#avent2026"],
+    { w: "Une FAQ lève les doutes de ceux qui hésitent : c'est le carrousel qui convertit." }),
+  car("Carrousel", "Ce qui t'attend semaine par semaine", "Décembre,\nsemaine par semaine",
+    ["Décembre,\nsemaine par semaine", "Semaine 1 : l'ouverture.\nDes cases qui donnent le ton.", "Semaine 2 : les couleurs\net une première case bonus.", "Semaine 3 : le plus doux,\navec la case bonus n°2.", "Semaine 4 : la dernière ligne droite\net le grand final le 24.", "24 cases. 24 jours.\nUn rendez-vous chaque jour.", "Écris-moi AVENT\nen message privé 🎁"],
+    "des chaussettes de Noël sur un plaid, un ruban rouge, lumière chaude, cadre serré.",
+    "Je ne dévoile rien de plus, mais voilà le rythme du mois. 🎄\nÉcris-moi AVENT en message privé pour rejoindre le calendrier.",
+    ["#calendrierdelavent", "#decembre", "#avent2026"],
+    { n: "Ne dévoile jamais le contenu exact d'une case, seulement l'ambiance." }),
+  car("Carrousel", "Les couleurs de Noël de la vendeuse2iep", "Pédi de Noël :\nrouge, bordeaux ou doré ?",
+    ["Pédi de Noël :\nrouge, bordeaux ou doré ?", "1 · Rouge rubis", "2 · Bordeaux profond", "3 · Doré chaleureux", "Laquelle pour la case 1 ?", "Vote en message privé :\n1, 2 ou 3.", "Écris-moi AVENT\nen message privé ❤️"],
+    "trois flacons de vernis alignés (rouge, bordeaux, doré) sur une serviette crème, un ruban rouge à côté.",
+    "Je n'arrive pas à choisir pour la case 1. Aidez-moi, les fan2iep ! 💅\nVotez en message privé : 1, 2 ou 3.",
+    ["#pedi", "#noel2026", "#calendrierdelavent"],
+    { d: "Écris ton chiffre (1, 2 ou 3) en message privé, je compte les votes.", w: "Un vote à trois choix : une action simple, et chacun défend sa couleur." }),
+  car("Carrousel", "Merci les fan2iep", "Merci\nles fan2iep ❤️",
+    ["Merci\nles fan2iep ❤️", "24 jours ensemble.", "Merci pour chaque message.", "Merci pour chaque case ouverte.", "Ce n'est que le début.", "La suite arrive.\nÉcris-moi en message privé."],
+    "un pied sur un plaid crème, un ruban rouge noué autour de la cheville, une lumière chaude en fond.",
+    "Merci d'avoir été là pour ces 24 jours. ❤️\nÉcris-moi en message privé pour la suite.",
+    ["#merci", "#fan2iep", "#noel"],
+    { d: "Écris-moi en message privé : je réponds à tous.", w: "Un message de remerciement fidélise : on revient pour la suite." }),
+  photoPost("Photo", "Photo : Le calendrier est ouvert", "Le calendrier est ouvert.\nTu as raté quoi ?",
+    "un talon bordeaux posé sur un plaid crème, un ruban rouge à côté, cadre serré.",
+    "Chaque jour, une nouvelle case. 🎄\nEnvie de rattraper ? Écris-moi AVENT en message privé.", ["#calendrierdelavent", "#avent2026"]),
+  photoPost("Photo", "Photo : Mes crush", "Mes crush à moi,\nc'est les fan2iep",
+    "un pied sur un plaid, une guirlande floue derrière, cadre serré.",
+    "Vous me faites trop sourire. 🥹\nÉcris-moi en message privé, je réponds à tous.", ["#fan2iep", "#merci"], { d: "Écris-moi en message privé : je réponds à tous." }),
+  photoPost("Photo", "Photo : Le décor de décembre", "Plaid, guirlande, ruban :\nmon décor de décembre",
+    "le coin plaid bordeaux avec guirlande et ruban rouge. Un pied peut dépasser du plaid, cadre serré.",
+    "Le décor est prêt. ✨\nÉcris-moi AVENT en message privé.", ["#decembre", "#cosy", "#calendrierdelavent"]),
+  photoPost("Photo", "Photo : Pédi de Noël", "Pédi de Noël :\ntu choisis quoi ?",
+    "un pied avec un vernis rouge bordeaux fraîchement posé, flacon à côté, cadre serré.",
+    "Dites-moi la couleur de la case 1. 💅\nÉcris-moi en message privé.", ["#pedi", "#noel"], { d: "Écris-moi ta couleur préférée en message privé." }),
+  photoPost("Photo", "Photo : Je réponds à tous", "Je réponds à tous\nles fan2iep. Vraiment.",
+    "un pied posé près d'un téléphone allumé sur un plaid crème, cadre serré, écran non lisible.",
+    "Oui, à tous. ❤️\nÉcris-moi en message privé.", ["#fan2iep", "#dm"], { d: "Écris-moi en message privé : je réponds à tous." }),
+  photoPost("Photo", "Photo : La case du jour", "La case du jour\nest prête. Tu viens ?",
+    "un ruban rouge noué autour d'une cheville, un petit paquet crème à côté, cadre serré.",
+    "Une case par jour, jusqu'au 24. 🎁\nÉcris-moi AVENT en message privé.", ["#calendrierdelavent", "#avent2026"])
 );
 
-DM_LINES["Astuce"] = ["Écris-moi en message l'astuce que tu veux voir ensuite.", "Dis-moi en message ce que je dois tester."];
+/* ---------- Idées à date fixe ----------
+   post1 = toujours TikTok + Insta, post2 peut être Insta seulement. */
+function adv(d, slot, t, h, pose, c, tags, occ, o) {
+  o = o || {};
+  var i = mk("Compte à rebours", t, h, pose, c, o.a || "Dis-moi que tu seras là.", o.w || "Un rendez-vous précis : on revient voir la suite.",
+    { d: DM_AVENT, tags: tags || ["#calendrierdelavent"], occ: occ, texts: o.texts });
+  i.p = o.p || "tt";
+  return { d: d, slot: slot, idea: i };
+}
+function dayCase(d, n, h, pose, c) {
+  var cn = d.slice(8) * 1;
+  return adv(d, "post1", "Case " + cn + " : le teaser", h, pose, c, ["#calendrierdelavent", "#avent2026"], "Case " + cn + " ★", { a: "Dis-moi laquelle tu attends le plus.", w: "Chaque jour une nouvelle case : on revient chaque jour pour savoir ce qu'il y a derrière." });
+}
+
+var SPECIALS = [
+  /* --- Compte à rebours avant le 1er décembre --- */
+  adv("2026-11-26", "post1", "J-5", "J-5 : le calendrier de l'avent de ieps arrive. Vous êtes prêts ?", "marche", "J-5. ⏳", ["#calendrierdelavent", "#avent2026"], "J-5 ★"),
+  adv("2026-11-27", "post1", "Vous en connaissez beaucoup", "Vous en connaissez beaucoup, des vendeuses qui font un calendrier de l'avent de ieps ?", "frotter", "Je suis la meilleure, je sais. 😌", ["#calendrierdelavent", "#avent2026"], "J-4 ★", { a: "Dis-moi si tu en connais une autre.", w: "Une question qui flatte : les fans citent d'eux-mêmes ta valeur." }),
+  adv("2026-11-28", "post1", "Vous êtes nombreux à l'attendre en DM", "Vous êtes nombreux à l'attendre en DM… 👀", "vernis", "Merci d'attendre avec moi. ❤️", ["#calendrierdelavent", "#avent2026"], "J-3 ★", { a: "Dis-moi que tu fais partie des nombreux.", w: "La preuve sociale vécue : on veut faire partie de ceux qui attendent." }),
+  adv("2026-11-29", "post1", "J-2", "J-2. Les fan2iep, vous dormez encore ?", "lit", "Plus que deux nuits. 🌙", ["#calendrierdelavent", "#avent2026"], "J-2 ★"),
+  adv("2026-11-30", "post1", "Demain à minuit", "Demain, 00h00. Mettez un réveil. ⏰", "reveil", "Mettez un réveil. ⏰", ["#calendrierdelavent", "#avent2026"], "J-1 ★", { a: "Dis-moi si tu mets un réveil." }),
+  adv("2026-12-01", "post1", "Le calendrier est ouvert", "C'est ouvert. La case n°1 est là. 🎄", "guirlande", "C'est parti. 🎄", ["#calendrierdelavent", "#avent2026"], "Jour 1 ★", { a: "Dis-moi que tu es là.", w: "Le jour du lancement : on revient chaque jour pour la suite." }),
+
+  /* --- Carrousels du compte à rebours (Insta seulement, post2) --- */
+  { d: "2026-11-26", slot: "post2", idea: car("Carrousel", "Cette année, décembre sera différent", "Cette année,\ndécembre sera différent… 🎀",
+    ["Cette année,\ndécembre sera différent… 🎀", "24 jours.\n24 petites surprises.\nÇa commence bientôt.", "Tu pourrais passer décembre\ncomme tous les autres mois…\nOu avoir une petite surprise chaque jour.", "J'ai préparé quelque chose\npour les fan2iep les plus impatients.", "1. Tu m'écris AVENT.\n2. Je t'explique en privé.\n3. Tu ouvres la case 1 le 1er décembre.", "J-5.\nLe compte à rebours est lancé. ❤️", "Tu veux en savoir plus ?\nÉcris-moi AVENT\nen message privé 🎁"],
+    "gros plan sur un talon bordeaux, une jambe en collant, un ruban rouge noué autour de la cheville, fond crème flouté.",
+    "J'avais envie de préparer quelque chose de différent pour décembre… 🎀\nAlors j'ai imaginé 24 jours de surprises pour les fan2iep.\nÉcris-moi AVENT en message privé.",
+    ["#calendrierdelavent", "#avent2026", "#noel2026"], { occ: "J-5 ★" }) },
+  { d: "2026-11-27", slot: "post2", idea: car("Carrousel", "24 jours. Pas un de moins.", "24 jours.\nPas un de moins. ❤️",
+    ["24 jours.\nPas un de moins. ❤️", "Le 1er décembre à 00h00,\non ouvre le premier jour.", "AVANT : un mois de décembre comme les autres.\nAPRÈS : un rendez-vous à attendre chaque jour.", "Pas une surprise isolée.\nUn vrai rendez-vous pendant 24 jours.", "1. Tu demandes les informations.\n2. Tu découvres le fonctionnement.\n3. Tu profites de ton calendrier dès minuit.", "Plus que 4 jours\navant le début de l'aventure.", "Tu veux faire partie des premiers ?\nÉcris-moi AVENT\nen message privé 🎀"],
+    "des jambes en collants bordeaux et des escarpins crème, une boîte cadeau et un ruban rouge au premier plan.",
+    "24 jours, c'est long quand on attend Noël… mais trop court quand on a une surprise chaque jour. 👀\nLe calendrier commence le 1er décembre à 00h00. Écris-moi AVENT en message privé.",
+    ["#avent2026", "#calendrierdelavent", "#decembre2026"], { occ: "J-4 ★" }) },
+  { d: "2026-11-28", slot: "post2", idea: car("Carrousel", "Le rendez-vous de décembre", "Le rendez-vous\nde décembre 🎁",
+    ["Le rendez-vous\nde décembre 🎁", "Un calendrier imaginé\nspécialement pour les fan2iep.", "Une surprise le 1er décembre,\npuis plus rien jusqu'à Noël ?\nPas ici. 😉", "Du 1er au 24 décembre.\nUn calendrier qui t'accompagne jusqu'à Noël.", "1. Tu m'écris AVENT.\n2. Je t'explique les modalités en privé.\n3. Tu suis les instructions pour y accéder.", "Début dans 3 jours.\nLe premier rendez-vous approche !", "Tu veux connaître les détails ?\nÉcris-moi AVENT\nen message privé ❤️"],
+    "des collants crème, une paire de talons bordeaux et un petit paquet cadeau noué avec du satin rouge.",
+    "J'ai voulu créer un vrai petit rendez-vous pour le mois de décembre. 🎄\n24 jours, du premier au vingt-quatrième. Écris-moi AVENT en message privé pour le fonctionnement.",
+    ["#calendrierdelavent", "#avent2026", "#noel2026"], { occ: "J-3 ★" }) },
+  { d: "2026-11-29", slot: "post2", idea: car("Carrousel", "Attention, ça commence bientôt", "Attention,\nça commence bientôt. ⏳",
+    ["Attention,\nça commence bientôt. ⏳", "J-2.\nPlus que deux petites journées.", "Tu peux continuer à te dire « je verrai demain »…\nMais décembre arrive vraiment.", "24 jours de calendrier.\nDu 1er au 24 décembre.", "1. Tu m'écris AVENT.\n2. Je t'envoie les informations.\n3. Tu décides si tu veux participer.", "Le premier jour arrive\ndans moins de 48 heures.", "Derniers préparatifs de mon côté…\nÉcris-moi AVENT\nen message privé 🎀"],
+    "une jambe en collant sombre, un talon bordeaux, une petite horloge dorée floue en arrière-plan.",
+    "J-2 ! ❤️\nJe termine les derniers préparatifs et j'ai tellement hâte de commencer. Vous êtes prêts ?\nÉcris-moi AVENT en message privé.",
+    ["#avent2026", "#calendrierdelavent", "#countdown"], { occ: "J-2 ★" }) },
+  { d: "2026-11-30", slot: "post2", idea: car("Carrousel", "Demain, c'est le grand jour", "Demain,\nc'est le grand jour. ❤️",
+    ["Demain,\nc'est le grand jour. ❤️", "30 novembre.\nDernière soirée avant le lancement.", "Le premier décembre à minuit, le calendrier commence.\nTu veux vraiment arriver après le début ?", "24 jours. 24 rendez-vous.\nDu 1er au 24 décembre.", "1. Tu m'écris AVENT.\n2. Je t'explique tout en privé.\n3. Tu suis les instructions avant minuit.", "J-1.\nC'est maintenant pour commencer dès le premier jour.", "Je t'attends en message privé.\nÉcris-moi AVENT 🎁"],
+    "des escarpins bordeaux, une jambe en collant, un paquet cadeau crème avec un gros nœud rouge. Ambiance soirée de Noël.",
+    "ON Y EST PRESQUE. 😭❤️\nDemain à 00h00, le calendrier commence officiellement. Pour les modalités avant le lancement : écris-moi AVENT en message privé.",
+    ["#avent2026", "#noel2026", "#calendrierdelavent"], { occ: "J-1 ★" }) },
+  { d: "2026-12-01", slot: "post2", idea: car("Carrousel", "Il est minuit, c'est parti", "Il est minuit…\nC'est parti ! 🎄",
+    ["Il est minuit…\nC'est parti ! 🎄", "1er décembre 2026.\nLe calendrier a officiellement commencé.", "Pendant que certains ouvrent leur premier jour…\nD'autres n'ont pas encore découvert le concept.", "24 jours de surprises.\nLe rendez-vous de décembre est lancé.", "1. Tu m'écris AVENT.\n2. Je t'explique les modalités.\n3. Je te dis si tu peux encore rejoindre.", "Le premier jour est lancé.\nDemande-moi en privé si c'est encore possible.", "Tu veux découvrir le concept ?\nÉcris-moi AVENT\nen message privé ❤️"],
+    "un talon bordeaux au premier plan, un ruban rouge, une horloge qui affiche minuit en arrière-plan, lumière chaude.",
+    "00H00. C'EST PARTI. 🎀\nLe calendrier de l'avent est lancé : 24 jours de rendez-vous.\nTu as raté le départ ? Demande-moi en privé si tu peux encore rejoindre : écris-moi AVENT.",
+    ["#avent2026", "#calendrierdelavent", "#decembre2026"], { occ: "Jour 1 ★", n: "Ne promets une place que s'il en reste vraiment : Timothée répond en message privé." }) },
+
+  /* --- Une case, un teaser (du 2 au 24 décembre) : on ne dévoile que l'ambiance --- */
+  dayCase("2026-12-02", 2, "Case 2 : bordeaux. Je ne dis rien de plus. 🍷", "talons", "Bordeaux. 🍷"),
+  dayCase("2026-12-03", 3, "Case 3 : les chaussettes que vous attendiez. 🧦", "chaussettes", "Case 3. 🧦"),
+  dayCase("2026-12-04", 4, "Case 4 : rayures roses. Devinez la suite. 🎀", "chaussettes", "Case 4. 🎀"),
+  dayCase("2026-12-05", 5, "Case 5 : des fleurs, mais pas dans un vase. 🌸", "canape", "Case 5. 🌸"),
+  dayCase("2026-12-06", 6, "Case 6 : tout en noir. Rien d'autre à dire. 🖤", "talons", "Case 6. 🖤"),
+  dayCase("2026-12-07", 7, "Case bonus n°1 : les chaussettes de Noël sont sorties. 🎅", "chaussettes", "Bonus n°1. 🎅"),
+  dayCase("2026-12-08", 8, "Case 8 : ambiance salle de bain. 🫧", "creme", "Case 8. 🫧"),
+  dayCase("2026-12-09", 9, "Case 9 : encore des talons. Vous ne vous en lasserez pas.", "talons", "Case 9. 👠"),
+  dayCase("2026-12-10", 10, "Case 10 : j'ai dessiné dessus. ⭐", "vernis", "Case 10. ⭐"),
+  dayCase("2026-12-11", 11, "Case 11 : au naturel. Juste moi, la lumière et un plaid. 🤍", "frotter", "Case 11. 🤍"),
+  dayCase("2026-12-12", 12, "Case 12 : jean, sandales, et une belle marche. 👖", "marche", "Case 12. 👖"),
+  dayCase("2026-12-13", 13, "Case 13 : toute ma collection de paires est de sortie. 👡", "talons", "Case 13. 👡"),
+  dayCase("2026-12-14", 14, "Case bonus n°2 : une surprise sucrée. 🍯", "canape", "Bonus n°2. 🍯"),
+  dayCase("2026-12-15", 15, "Case 15 : un petit geste tout doux. 🤍", "creme", "Case 15. 🤍"),
+  dayCase("2026-12-16", 16, "Case 16 : toutes les couleurs de l'arc-en-ciel. 🌈", "chaussettes", "Case 16. 🌈"),
+  dayCase("2026-12-17", 17, "Case 17 : brillance garantie. ✨", "creme", "Case 17. ✨"),
+  dayCase("2026-12-18", 18, "Case 18 : dentelle noire, version Noël. 🖤", "canape", "Case 18. 🖤"),
+  dayCase("2026-12-19", 19, "Case 19 : les guirlandes sont de retour. 🎄", "guirlande", "Case 19. 🎄"),
+  dayCase("2026-12-20", 20, "Case 20 : au ralenti, pour profiter de chaque seconde. 🐢", "marche", "Case 20. 🐢"),
+  dayCase("2026-12-21", 21, "Case bonus n°3 : la plus douce de toutes. 💆", "creme", "Bonus n°3. 💆"),
+  dayCase("2026-12-22", 22, "Case 22 : le dernier set au naturel. 🤍", "frotter", "Case 22. 🤍"),
+  adv("2026-12-23", "post1", "Case 23 : demain, c'est Noël", "Demain, c'est Noël. Et demain, c'est le final. 🎀", "guirlande", "Demain. 🎀", ["#calendrierdelavent", "#avent2026"], "Case 23 ★", { a: "Dis-moi si tu es prêt pour demain." }),
+  adv("2026-12-24", "post1", "Case 24 : le grand final", "Case 24 : le grand final. Merci d'avoir ouvert chaque case. ❤️", "guirlande", "Le grand final. ❤️", ["#calendrierdelavent", "#avent2026"], "Case 24 ★", { a: "Dis-moi ta case préférée." }),
+  adv("2026-12-25", "post1", "Joyeux Noël aux fan2iep", "Joyeux Noël aux fan2iep ❤️", "chaussettes", "Joyeux Noël. 🎄", ["#noel", "#fan2iep"], "Noël ★", { a: "Dis-moi ce que tu as trouvé sous le sapin." }),
+  adv("2026-12-31", "post1", "Merci pour cette année", "Dernier jour de l'année : merci aux fan2iep ❤️", "canape", "Merci pour cette année. 🥂", ["#bonneannee", "#fan2iep"], "Réveillon ★", { a: "Dis-moi ton souhait pour 2027." }),
+  adv("2027-01-01", "post1", "Bonne année", "Bonne année aux fan2iep. Le 1er du mois, vous êtes où ? 🥂", "marche", "Bonne année. 🥂", ["#bonneannee", "#fan2iep"], "Nouvel An ★", { a: "Dis-moi que tu es là." })
+];
+
+/* ---------- Invitations en message ---------- */
+var DM_LINES = {
+  "Appel aux fans": ["Écris-moi « présent » en message privé.", "Dis-moi que tu es là en message privé."],
+  "Avent": [DM_AVENT],
+  "Compte à rebours": [DM_AVENT],
+  "Pédi": ["Écris-moi ta couleur préférée en message privé."],
+  "Soin": ["Écris-moi en message privé : dis-moi ton rituel."],
+  "Ambiance": [DM_AVENT],
+  "Réponse": ["Pose-moi ta question en message privé."]
+};
+
+/* Par défaut, une idée peut aller sur TikTok et Instagram. */
+BANK.forEach(function (b) { if (!b.p) { b.p = "tt"; } });
+SPECIALS.forEach(function (s) { if (!s.idea.p) { s.idea.p = "tt"; } });
 
 /* Un mot de Timothée par jour. Il change tous les jours (un par jour, dans l'ordre), sauf les dates marquées. */
 
@@ -1700,120 +1386,8 @@ function storyNeeds(st) {
   return detectProps([st.t, st.s].join(" "));
 }
 
-/* ---- Pas à pas rédigés à la main pour les idées les moins évidentes ---- */
-var DETAILS = {
-  "Du jean à la soirée": {
-    m: ["Un jean et des baskets", "Une jupe longue et des bottines", "Un livre pour caler le téléphone"],
-    l: "8 secondes",
-    p: [
-      "Prépare tout avant de filmer : la tenue 2 (jupe et bottines) posée juste à côté, à portée de main.",
-      "Cadre : pose le téléphone au sol, contre un livre, objectif tourné vers toi. Recule d'un mètre. On doit voir tes chaussures en entier, du genou au sol. Ne touche plus au téléphone jusqu'à la fin : c'est ça qui rend le changement magique.",
-      "Clip 1 · 3 secondes : tu portes le jean et les baskets. Appuie sur Enregistrer, reste immobile 2 secondes, puis passe ta main grande ouverte devant l'objectif (l'écran devient noir). Appuie sur Pause.",
-      "Change de tenue SANS bouger le téléphone : jupe longue et bottines. Reviens exactement à la même place.",
-      "Clip 2 · 4 secondes : colle ta main devant l'objectif, appuie sur Enregistrer, enlève ta main d'un coup. Reste immobile 3 secondes dans la nouvelle tenue.",
-      "Texte (outil Texte de TikTok, gros, blanc, en haut) : « Lundi 9 h » pendant le clip 1, « Samedi 23 h » pendant le clip 2.",
-      "Ajoute un son : ouvre « Sons », cherche un son qui change de rythme au milieu, filtre France."
-    ],
-    k: "Le test : en regardant la vidéo, le sol et le mur ne doivent pas bouger d'un millimètre entre les deux clips. Seule la tenue change."
-  },
-  "Cinq paires sur le beat": {
-    m: ["5 paires de chaussures différentes (ou 4 paires et un quintette de chaussettes)", "Un sol uni ou un tapis", "Un livre pour caler le téléphone"],
-    l: "10 secondes",
-    p: [
-      "Aligne tes 5 paires à côté de toi, dans l'ordre où tu veux les montrer. Mets ta préférée en dernier.",
-      "Choisis le son AVANT : ouvre « Sons », cherche un morceau avec des temps forts bien nets, filtre France. Garde-le sous la main.",
-      "Cadre : téléphone calé au sol, du genou au sol. Ne le touche plus.",
-      "Pour chaque paire : arrête l'enregistrement, change de chaussures hors cadre (garde toujours des chaussettes ou des chaussures à l'écran), reprends exactement ta place, filme 2 secondes immobile. Fais-le 5 fois.",
-      "Dans l'éditeur TikTok, ajuste chaque clip pour qu'il change sur un temps fort du son (2 secondes par paire, 3 pour la dernière).",
-      "Texte : un chiffre de 1 à 5 en gros sur chaque clip, puis « Laquelle gagne ? » sur le dernier."
-    ],
-    k: "Le test : chaque changement de paire tombe sur un temps fort du son."
-  },
-  "Même tenue, quatre chaussettes": {
-    m: ["Un pantalon que tu peux retrousser (jean, pantalon droit)", "4 paires de chaussettes différentes : blanches, rayées, longues colorées, côtelées", "Baskets ou mocassins", "Un livre pour caler le téléphone"],
-    l: "9 secondes",
-    p: [
-      "Mets le pantalon retroussé au-dessus de la cheville et les baskets ou mocassins : on doit voir la chaussette qui dépasse.",
-      "Cadre : téléphone calé au sol, cadre bas, du genou au sol. Ne le touche plus.",
-      "Pour chaque paire de chaussettes : arrête l'enregistrement, change de chaussettes et remets les chaussures hors cadre, reprends ta place, filme 2 secondes immobile. Quatre fois.",
-      "Texte de deux mots par clip pour nommer l'humeur, par exemple « Sage », « Joueuse », « Cosy », « Chic ».",
-      "Dernier clip : tiens-le 3 secondes, ajoute « Tu es laquelle ? »."
-    ],
-    k: "Le test : le pantalon et les chaussures ne changent pas d'un clip à l'autre, seules les chaussettes changent."
-  },
-  "Le sol raconte la semaine": {
-    m: ["Une seule paire de bottes", "Quatre endroits chez toi ou autour : cuisine, rue, escalier, parking ou entrée d'immeuble", "Ton téléphone"],
-    l: "7 secondes",
-    p: [
-      "Garde les mêmes bottes pour les quatre plans : c'est elles, l'héroïne.",
-      "Pour chaque lieu : tiens le téléphone à la main, bras tendu vers le bas, objectif vers le sol, à 50 cm. Filme 1 seconde de tes bottes sur le sol, sans visage.",
-      "Écris le nom du lieu en gros sur chaque plan : « Cuisine », « Rue », « Escalier », « Parking ».",
-      "Dernier plan : pose les bottes près de ta porte, filme 2 secondes immobile.",
-      "Colle les 4 plans bout à bout dans l'éditeur, sans transition : un cut net à chaque lieu."
-    ],
-    k: "Le test : chaque plan dure à peu près 1 seconde, pas plus, pour qu'on reste voir le suivant."
-  },
-  "Le check du look": {
-    m: ["Une tenue complète du jour", "Des chaussures propres", "Ton téléphone, à tenir à deux mains"],
-    l: "8 secondes",
-    p: [
-      "Tiens le téléphone à deux mains devant ton ventre, objectif vers l'avant, à hauteur de ceinture. Ton visage ne doit pas être dans le cadre.",
-      "Appuie sur Enregistrer, puis baisse lentement le téléphone jusqu'à voir tes chaussures : compte 3 secondes pour la descente.",
-      "Reste 1 seconde sur les chaussures, puis remonte d'un coup en 0,5 seconde, comme une coupure.",
-      "Texte à la remontée : « Verdict ? ». Ajoute un son qui claque au moment de la remontée.",
-      "Termine sur la tenue immobile 2 secondes."
-    ],
-    k: "Le test : la descente est lente, la remontée est rapide. C'est ce contraste qui donne envie de revoir."
-  },
-  "La paire qui change tout": {
-    m: ["Une tenue noire (portée ou posée à plat)", "4 paires : baskets, mocassins, bottes, talons (ou ce que tu as de plus différent)", "Un livre pour caler le téléphone"],
-    l: "8 secondes",
-    p: [
-      "Cadre : téléphone calé au sol, du genou au sol, tenue noire en place. Ne le touche plus.",
-      "Pour chaque paire : arrête l'enregistrement, change de chaussures hors cadre, reprends ta place, filme 1,5 seconde immobile.",
-      "Ordre conseillé : baskets, mocassins, bottes, talons. La plus surprenante en dernier.",
-      "Texte sur chaque clip : le nom de la paire en deux mots.",
-      "Dernier plan : « Laquelle pour samedi ? »."
-    ],
-    k: "Le test : seule la paire change, le reste du cadre reste identique."
-  },
-  "Entrée en scène": {
-    m: ["Une porte (ta porte d'entrée ou de chambre)", "Des bottes ou des talons", "Un livre pour caler le téléphone"],
-    l: "8 secondes",
-    p: [
-      "Pose le téléphone au sol, face à la porte, à 1 mètre, cadre bas : on voit le bas de la porte et le sol.",
-      "Mets-toi derrière la porte, côté pièce voisine. Appuie sur Enregistrer, attends 1 seconde.",
-      "Ouvre la porte et fais trois pas lents vers le téléphone, en rythme avec le son (un pas par temps fort).",
-      "Arrête l'enregistrement. Pour le 2e plan, change de lieu (autre pièce, palier) avec les mêmes chaussures : filme 3 secondes de marche.",
-      "Colle les deux plans avec un cut net. Texte : « Toujours à l'heure. Presque. »"
-    ],
-    k: "Le test : les pas tombent sur les temps forts du son."
-  },
-  "Le placard version honnête": {
-    m: ["Ton placard ou ton étagère à chaussures", "Une chaussure légère qui peut tomber sans casser quoi que ce soit"],
-    l: "9 secondes",
-    p: [
-      "Tiens le téléphone devant la porte fermée du placard, bien droit, avant d'appuyer sur Enregistrer.",
-      "Ouvre la porte en rythme avec le son, puis fais un panoramique lent de gauche à droite : une paire par seconde.",
-      "Au dernier plan, laisse tomber doucement une chaussure légère depuis l'étagère (hors cadre) : on la voit atterrir.",
-      "Texte final : « Ça arrive »."
-    ],
-    k: "Le test : le désordre reste visible, c'est le but. Ne range rien avant."
-  },
-  "La musique choisit la tenue": {
-    m: ["Tenue 1 : décontractée (jean ou jogging propre, baskets)", "Tenue 2 : habillée avec des talons", "Un son qui change de rythme au milieu", "Un livre pour caler le téléphone"],
-    l: "8 secondes",
-    p: [
-      "Choisis un son qui change nettement de rythme au milieu (calme, puis plus fort). Repère la seconde du changement.",
-      "Cadre : téléphone calé au sol, du genou au sol. Ne le touche plus.",
-      "Clip 1 · 4 secondes : tenue décontractée, immobile. Pause.",
-      "Change de tenue hors cadre sans bouger le téléphone, reviens exactement à la même place.",
-      "Clip 2 · 4 secondes : tenue habillée et talons. Claque des doigts au moment du changement de rythme, tiens 1 seconde de pause à la fin.",
-      "Dans l'éditeur, place le cut sur le claquement de doigts."
-    ],
-    k: "Le test : le cut tombe pile sur le changement du son."
-  }
-};
+/* ---- Pas à pas rédigés à la main (les idées fournissent leur propre guide dans x) ---- */
+var DETAILS = {};
 
 function ideaX(idea) { return idea ? (idea.x || DETAILS[idea.t] || null) : null; }
 
@@ -1835,8 +1409,8 @@ function autoPlan(steps, total) {
 }
 
 function frameTip(idea) {
-  if (idea && idea.f === "Vernis") { return "Cadre : tes mains et le flacon, posés sur une feuille blanche, lumière douce. Pas de visage."; }
-  return "Cadre : du genou au sol, sur un fond uni (mur, porte, drap). Rien qui montre ton visage, ton nom, ton adresse ou une étiquette de colis.";
+  if (idea && idea.p === "ig") { return "Cadre : serré sur une partie des pieds, fond uni crème ou bordeaux, lumière chaude. Rien qui montre ton visage, ton nom, ton adresse ou une étiquette de colis."; }
+  return "Cadre : serré sur les pieds et les chevilles, jamais plus haut que le mollet, sur un fond uni (plaid, drap, tapis). Rien qui montre ton visage, ton nom, ton adresse ou une étiquette de colis.";
 }
 
 function ideaGuide(idea) {
@@ -1865,7 +1439,7 @@ function ideaGuide(idea) {
     how: "Écris-le avec l'outil Texte : gros, blanc, centré en haut du cadre, visible dès la première image et pendant au moins 3 secondes. Beaucoup de gens regardent sans le son.",
     alt: alt,
     check: [
-      "Tes pieds sont chaussés (chaussures, chaussettes ou collants opaques). Aucun visage, aucun nom, aucune adresse visible.",
+      "Aucun visage, aucun reflet, aucun nom, aucune adresse visible. Seulement une partie des pieds.",
       "On comprend l'idée sans le son.",
       "La légende et les hashtags sont copiés (en dessous)."
     ]
@@ -1875,6 +1449,7 @@ function ideaGuide(idea) {
 /* Logique pure : dates, rotation des idées, reports, score. Aucun accès au DOM. */
 
 var ANCHOR = "2026-11-25";   /* premier jour du programme */
+var CARRY_FROM = (typeof window !== "undefined" && window.__CARRY_FROM) || "2026-11-26";   /* les anciens posts d'avant le changement de ligne ne sont plus reportés */
 var DAY_START_HOUR = 0;      /* le « jour » change à minuit, heure de Paris (peu importe où se trouve l'appareil) */
 var TZ = "Europe/Paris";
 var CARRY_DAYS = 3;          /* une tâche non cochée revient pendant 3 jours */
@@ -1976,10 +1551,11 @@ var SPECIAL_MAP = {};
 SPECIALS.forEach(function (s) { SPECIAL_MAP[s.d + "|" + s.slot] = s.idea; });
 function specialFor(date, slot) { return SPECIAL_MAP[date + "|" + slot] || null; }
 
-/* Invitation à écrire en message : jamais sur un post Insta seulement. */
+/* Invitation à écrire en message : toujours donnée par l'idée (d), sinon celle de la famille. */
 function dmFor(idea) {
-  if (!idea || idea.p === "ig") { return null; }
+  if (!idea) { return null; }
   if (idea.d) { return idea.d; }
+  if (idea.p === "ig") { return null; }
   var l = DM_LINES[idea.f];
   return l ? l[idea.t.length % l.length] : null;
 }
@@ -2166,7 +1742,7 @@ function buildToday(state, today) {
   var carried = [];
   for (var k = CARRY_DAYS; k >= 1; k--) {
     var d = addDays(today, -k);
-    if (d < ANCHOR) { continue; }
+    if (d < ANCHOR || d < CARRY_FROM) { continue; }
     tasksForDate(d, state.swaps).forEach(function (t) {
       var dd = doneDayOfAuto(state, t.date, t.slot);
       if (!dd || dd === today) { t.late = dayDiff(t.date, today); carried.push(t); }
@@ -2311,7 +1887,7 @@ function pushUrgent(pin) { return pushPost("/urgent", { pin: pin }); }
 function pushTest(pin) { return pushPost("/test", { pin: pin }); }
 
 /* Analyse d'une idée de post, avec des règles simples (pas d'IA, pas de statistiques).
-   Elle vérifie les règles du compte (pieds chaussés, aucune vente, anonymat, public adulte)
+   Elle vérifie les règles du compte (une partie des pieds seulement, mots codés, ni prix ni lien, anonymat, public adulte)
    et cherche les ingrédients qui font rester les gens : accroche, progression, question, sujet qui parle à tous.
    Elle ne prédit jamais un nombre de vues. */
 
@@ -2324,12 +1900,9 @@ function ideaWords(s) { var m = String(s || "").match(/[A-Za-zÀ-ÿ0-9']+/g); re
 
 /* Ce qui bloque : à corriger avant de publier. */
 var IDEA_STOP = [
-  { id: "nu", t: "Pieds nus ou orteils",
-    re: /pieds? nus?|nu[- ]pieds|pieds? a l'air|sans (mes |les )?(chaussures|chaussettes)|dechauss|orteils?|plantes? (des |de mes )?pieds?|pedicure|vernis (sur )?(les |mes )?(pieds|orteils)|massage (des |de mes )?pieds?/,
-    d: "Sur ce compte, les pieds restent chaussés (chaussettes, baskets, bottines). Pieds nus ou orteils en gros plan peuvent faire classer la vidéo comme suggestive." },
   { id: "vente", t: "Mot de vente",
     re: /\bvend(s|re|u|ue|ues|us|ons|ez|ent|ait)?\b|\bvente\b|\bprix\b|\btarifs?\b|\d+ ?(€|euros?)|\babonnement|\babonne[- ]toi|\bmym\b|onlyfans|fansly|telegram|\bpayant|contenus? exclusifs?|lien en bio/,
-    d: "Aucun mot de vente, de prix, de lien ou de plateforme dans un post public. Les invitations se font en message privé, par toi." },
+    d: "Aucun mot de vente, prix, lien ou plateforme dans un post public. Passe par les mots codés (ieps, fan2iep, vendeuse2iep) et invite à écrire en message privé." },
   { id: "explicite", t: "Mot trop explicite",
     re: /\bsexe\b|sexuel|erotique|\bnues?\b|\bcorps nus?\b|\bphotos? nu(e|s|es)?\b|nudite|\bseins?\b|\bfesses?\b|culotte|\bstrings?\b|lingerie|fetich|fantasme|jouir|gemir|soumis|domina|\bporno|nsfw/,
     d: "Ce vocabulaire peut faire retirer la vidéo ou la sortir des recommandations. Le double sens passe par l'ambiance, jamais par ces mots." },
@@ -2343,8 +1916,6 @@ var IDEA_STOP = [
 
 /* Ce qui demande de l'attention : le post peut passer, avec un garde-fou. */
 var IDEA_WARN = [
-  { id: "ouvert", t: "Chaussures ouvertes", re: /\bsandales?\b|\btongs?\b|\bclaquettes?\b|\bmules?\b|peep ?toe|spartiates?|talons? ouverts?|chaussures? ouvertes?/,
-    d: "Une chaussure ouverte laisse voir le pied. Choisis des baskets, des bottines ou des chaussettes." },
   { id: "suggestif", t: "Mot suggestif", re: /\bsexy\b|coquin|excitant|excite|sensuel|aguich|\bhot\b|\bchaud(e|es)? (comme|ce soir)|tentant|tentation|provoc|seduc|seduis/,
     d: "Instagram peut exclure des recommandations les contenus suggestifs, ce qui réduit la portée. Laisse l'image faire le sous-entendu, pas le mot." },
   { id: "argent", t: "Sous-entendu d'argent", re: /\bargent\b|\bpayee?s?\b|\bpaye\b|\bgagn(e|er|es|ons|ent)\b|\bsalaire|\brevenus?\b|\brentable|\bmonetis|\bbillets?\b|\bcash\b|\bmillionnaire/,
@@ -2352,13 +1923,13 @@ var IDEA_WARN = [
   { id: "messagerie", t: "Messagerie citée", re: /whatsapp|snap(chat)?\b|\binsta ?(perso|prive)|mon (autre|second) compte|mes autres comptes/,
     d: "Ne donne aucune autre messagerie en public. Les échanges démarrent en message privé, par toi." },
   { id: "hashtag", t: "Hashtag à risque", re: /#(feet|foot|toes|soles|fetish|fetiche|sexy|onlyfans|mym|nsfw|pieds)\w*/,
-    d: "Ces hashtags attirent les signalements et rangent le compte dans une catégorie sensible. Prends #chaussettes, #chaussures, #etudiante." },
+    d: "Ces hashtags attirent les signalements et rangent le compte dans une catégorie sensible. Prends #vendeuse2iep, #fan2iep, #ieps, #calendrierdelavent." },
   { id: "miroir", t: "Reflet possible", re: /miroir|vitre|reflet/,
     d: "Vérifie que ton visage et ta pièce ne se voient pas dans le reflet." },
   { id: "lieu", t: "Indice de lieu", re: /ma fac\b|mon universite|mon ecole|ma ville|mon quartier|mon campus/,
     d: "Un lieu précis aide à te retrouver. Dis « la fac » ou « mon quartier » sans nom." },
   { id: "visage", t: "Visage mentionné", re: /visage|figure|\bregard\b/,
-    d: "Garde le cadre du genou au sol. Si le visage apparaît, la vidéo ne respecte plus l'anonymat." }
+    d: "Garde le cadre serré sur les pieds. Si le visage apparaît, la vidéo ne respecte plus l'anonymat." }
 ];
 
 var IDEA_WINK = /plus (que|de) (les |mes )?(etudes|cours|revisions)|rapport(e|ent|era|eront|erait)|loyer|fin de mois|job (d')?etudiant|\bsecret\b|\bchut\b|discret|discretion|parents (ne )?(savent|croient)|textile|plan b|\bcv\b|ce que (les gens|personne) (ne )?(sait|savent)|double sens|sous-entendu/;
@@ -2376,18 +1947,23 @@ var IDEA_GOOD = [
   { id: "relatable", w: 8, re: /etudiant|etudes|examen|partiel|revision|\bfac\b|\bcours\b|loyer|fin de mois|lundi|vendredi|week-?end|soiree|rentree|vacances|pluie|froid|hiver|noel|\bcafe\b|chocolat chaud|pyjama|reveil|metro/,
     t: "Le sujet parle à tout le monde", d: "Un sujet de la vie courante est compris par un public large, c'est ce qui sort la vidéo de la niche." },
   { id: "chaussant", w: 8, re: /chaussettes?|chaussures?|baskets?|bottes?|bottines?|talons?|escarpins?|mocassins?|sneakers?|chaussons?|boots?/,
-    t: "La paire est au centre", d: "Le sujet du compte reste visible : chaussettes ou chaussures bien en vue, pieds chaussés." },
+    t: "Le sujet est bien visible", d: "Les chaussettes, chaussures ou le vernis sont bien en vue : le sujet du compte se comprend tout de suite." },
   { id: "son", w: 5, re: /son tendance|tendance|\btrend\b|audio|musique|sur le beat|\bbeat\b|rythme/,
     t: "Le son est pensé", d: "Un son qui monte ou un rythme net aide le montage et la diffusion." },
   { id: "serie", w: 6, re: /\bserie\b|partie ?[12]|episode|chaque (jour|semaine)|rituel|saison/,
     t: "Ça peut devenir une série", d: "Un format qu'on peut répéter fidélise : les gens reviennent pour la suite." },
-  { id: "cadre", w: 6, re: /sans (montrer )?(mon |le |de )?visage|cadre bas|du genou|plan au sol|plan fixe|cadre fixe|plan large|gros plan sur (la paire|les chaussures|les chaussettes)/,
-    t: "Le cadre protège ton anonymat", d: "Du genou au sol, sans visage : c'est le bon cadre pour ce compte." },
+  { id: "cadre", w: 6, re: /sans (montrer )?(mon |le |de )?visage|cadre bas|cadre serre|cheville|du genou|plan au sol|plan fixe|cadre fixe|plan large|gros plan sur (la paire|les chaussures|les chaussettes|le vernis)/,
+    t: "Le cadre protège ton anonymat", d: "Serré sur les pieds et les chevilles, sans visage : c'est le bon cadre pour ce compte." },
   { id: "duree", w: 4, re: /\b(8|9|1\d|2\d|30) ?(s|sec|secondes?)\b/,
     t: "La durée est courte", d: "Entre 8 et 30 secondes, on regarde jusqu'au bout plus souvent." }
 ];
 
 var IDEA_THEMES = [
+  { id: "avent", re: /avent|calendrier|fan2iep|ieps|vendeuse2iep|acheteur2iep|\bdecembre\b/,
+    hooks: ["Les fan2iep, vous êtes où ?", "Le calendrier de l'avent de ieps est prêt", "24 cases. 24 jours. 0 chocolat."],
+    ctas: ["Dis-moi que tu seras là à minuit.", "Dis-moi quelle case tu attends le plus.", "Écris-moi AVENT en message privé."],
+    ends: ["Termine par le texte « Écris-moi AVENT ».", "Termine sur un plan fixe d'une seconde, guirlande floue derrière.", "Termine par un compte à rebours à l'écran."],
+    scene: "Plan 1 : un pied sur un plaid bordeaux, cadre serré. Plan 2 : la guirlande floue derrière, mouvement minimal." },
   { id: "etudes", re: /etud|examen|partiel|revision|\bcv\b|\bfac\b|\bcours\b|diplome|plan b|\bjob\b|loyer|fin de mois|rapport/,
     hooks: ["Mon plan B est prêt", "Semaine d'examens, confiance maximale", "Fin de mois d'étudiante, version optimiste"],
     ctas: ["Et toi, c'est quoi ton plan B ?", "À quel jour de la semaine tu en es ?", "Quel est ton porte-bonheur pour les examens ?"],
@@ -2424,10 +2000,6 @@ var IDEA_DEFAULT = {
 
 /* Corrections automatiques, appliquées sur ton texte. */
 var IDEA_FIX = [
-  { re: /(?:\b(?:en|à|a|aux)\s+)?pieds?\s+nus?|nu[- ]pieds/gi, to: "en chaussettes", why: "« Pieds nus » est devenu « en chaussettes » : les pieds restent chaussés." },
-  { re: /sans\s+(?:mes\s+|les\s+)?(?:chaussures|chaussettes)/gi, to: "en chaussettes", why: "« Sans chaussures » est devenu « en chaussettes »." },
-  { re: /orteils?/gi, to: "bout des chaussettes", why: "Les orteils sont devenus le bout des chaussettes." },
-  { re: /\b(?:sandales?|tongs?|claquettes?|mules?)\b/gi, to: "baskets", why: "Une chaussure ouverte est devenue des baskets : le pied ne se voit pas." },
   { re: /\s*#(?:feet|foot|toes|soles|fetish|fetiche|sexy|onlyfans|mym|nsfw|pieds)\w*/gi, to: "", why: "Un hashtag à risque a été retiré." }
 ];
 
@@ -2477,7 +2049,7 @@ function analyzeIdea(text, date) {
     if (IDEA_GOOD[i].re.test(norm)) { goods.push(IDEA_GOOD[i]); has[IDEA_GOOD[i].id] = true; score += IDEA_GOOD[i].w; }
     else { missing.push(IDEA_GOOD[i]); }
   }
-  var pen = { ouvert: 8, suggestif: 12, argent: 12, messagerie: 6, hashtag: 4, miroir: 4, lieu: 4, visage: 6 };
+  var pen = { suggestif: 12, argent: 12, messagerie: 6, hashtag: 4, miroir: 4, lieu: 4, visage: 6 };
   for (i = 0; i < warns.length; i++) { score -= pen[warns[i].id] || 5; }
   if (wink && dm) { score -= 15; }
   if (words >= 25) { score += 6; } else if (words >= 12) { score += 3; }
@@ -2515,7 +2087,7 @@ function analyzeIdea(text, date) {
   var seed = ideaHash(norm), pick = function (arr) { return arr[seed % arr.length]; };
   var shoot = [
     "Plan 1 (0 à 2 s) : le texte d'accroche en gros, avant de montrer quoi que ce soit.",
-    "Plans suivants : du genou au sol, fond neutre, lumière du jour près d'une fenêtre, pieds toujours chaussés.",
+    "Plans suivants : cadre serré sur les pieds et les chevilles, fond uni (plaid, drap), lumière chaude, jamais le visage.",
     pick(theme.ends),
     "Durée visée : 15 à 25 secondes. Une seule idée par vidéo."
   ];
@@ -2542,7 +2114,7 @@ function analyzeIdea(text, date) {
   else { changes.push({ what: "Il ne reste rien de ton texte une fois corrigé : la version ci-dessous est un modèle neutre.", why: "Repars d'une idée de la banque du jour si tu veux garder l'esprit." }); }
   if (!has.accroche) { lines.push({ k: "Texte à l'écran (0 à 2 s)", v: hook }); changes.push({ what: "Ajout d'une accroche : « " + hook + " ».", why: "Les premières secondes décident si on reste." }); }
   if (!has.progress) { var e = pick(theme.ends); lines.push({ k: "Fin de la vidéo", v: e.replace(/^Termine /, "Termine ").replace(/^Texte final : /, "Texte final : ") }); changes.push({ what: "Ajout d'une fin : " + e, why: "Une chute donne une raison de regarder jusqu'au bout." }); }
-  if (!has.cadre) { lines.push({ k: "Cadre", v: "Du genou au sol, fond neutre, pieds chaussés, sans visage." }); changes.push({ what: "Ajout du cadre : du genou au sol, sans visage.", why: "Anonymat et règles du compte." }); }
+  if (!has.cadre) { lines.push({ k: "Cadre", v: "Cadre serré sur les pieds et les chevilles, fond uni, sans visage." }); changes.push({ what: "Ajout du cadre : serré sur les pieds, sans visage.", why: "Anonymat et règles du compte." }); }
   lines.push({ k: "Durée", v: "15 à 25 secondes." });
   if (!has.cta) { lines.push({ k: "Question en légende", v: cta }); changes.push({ what: "Ajout d'une question en légende : « " + cta + " ».", why: "Les commentaires aident la diffusion." }); }
   if (wink || stops.length) { lines.push({ k: "Garde-fou", v: "Ni invitation en message, ni chiffre, ni adresse dans la vidéo ou la légende." }); changes.push({ what: "Ajout d'un garde-fou : ni invitation en message, ni chiffre.", why: "Un sous-entendu plus un appel à écrire ressemble à une sollicitation." }); }
@@ -3028,7 +2600,7 @@ function analyzeIdea(text, date) {
     metaKids.push(el("span", { text: o.kind }));
     if (o.swapPill) { metaKids.push(el("span", { class: "pill swap", text: o.swapPill })); }
     if (o.occ) { metaKids.push(el("span", { class: "pill occ", text: o.occ })); }
-    if (o.plat) { metaKids.push(el("span", { class: "pill " + (o.plat === "ig" ? "ig" : "tt"), text: o.plat === "ig" ? "Insta seulement" : "TikTok + Insta" })); }
+    if (o.plat) { metaKids.push(el("span", { class: "pill " + (o.plat === "ig" ? "ig" : "tt"), text: o.plat === "ig" ? "Carrousel · TikTok + Insta" : "TikTok + Insta" })); }
     if (o.family) { metaKids.push(el("span", { class: "pill", text: o.family })); }
     if (o.lateLabel) { metaKids.push(el("span", { class: "pill late", text: o.lateLabel })); }
     if (o.warn) { metaKids.push(el("span", { class: "pill warn", text: o.warn })); }
@@ -3056,7 +2628,7 @@ function analyzeIdea(text, date) {
     d.push(block("L'idée", steps(g.brief.length ? g.brief : [idea.h])));
     d.push(block("Il te faut", para((need.length ? need.join(" · ") + " — " : "") + g.len)));
     d.push(block("Le texte à l'écran", el("p", { class: "quote", text: g.onscreen.indexOf("«") >= 0 ? g.onscreen : "« " + g.onscreen + " »" })));
-    d.push(el("p", { class: "tiny", text: "Pieds chaussés, ni visage, ni nom. Il te manque un truc ? Touche « Je peux pas faire ça »." }));
+    d.push(el("p", { class: "tiny", text: "Une partie des pieds seulement, ni visage, ni nom. Il te manque un truc ? Touche « Je peux pas faire ça »." }));
     return d;
   }
 
@@ -3073,13 +2645,12 @@ function analyzeIdea(text, date) {
       onToggle: function () { toggleAuto(task); },
       onCant: function () { openSwap(task); },
       detail: function () {
-        var d = [block("Où publier", para(ig ? "Instagram seulement (Reel). Ne le poste pas sur TikTok." : "TikTok, puis le même montage en Reel sur Instagram."))];
+        var d = [block("Où publier", para(ig ? "Les mêmes images, dans le même ordre, sur Instagram (carrousel) ET sur TikTok (mode photo)." : "TikTok, puis le même montage en Reel sur Instagram."))];
         d = d.concat(guideBlocks(idea));
         d.push(block("Légende", copyBox(idea.c)));
         d.push(block("Hashtags", copyBox(idea.g.join(" "))));
         d.push(block("Appel à l'action", para(idea.a)));
         if (dm) { d.push(block("Invitation en message", copyBox(dm))); }
-        if (ig) { d.push(block("Pas d'invitation en message", para("Sur un post à double sens, reste sur le commentaire. Inviter à écrire en message sur ce type de post augmente le risque de blocage."))); }
         if (wink) {
           d.push(block("Pas d'invitation en message", para("Ce post a déjà un clin d'œil : n'y ajoute ni invitation en message, ni lien, ni prix, même en commentaire épinglé. Les curieux iront voir ton profil.")));
           d.push(block("Le test du double sens", para("Cache le sous-entendu avec ta main : la vidéo doit rester drôle toute seule. Si elle ne l'est plus, change l'idée.")));
@@ -3456,7 +3027,7 @@ function analyzeIdea(text, date) {
   function verdictChip(a) { return el("span", { class: "vchip " + a.verdict, text: a.label + " · " + a.score + "/100" }); }
 
   function buildNoteCard() {
-    var ta = el("textarea", { id: "note-text", maxlength: "600", rows: "4", autocomplete: "off", placeholder: "Ex. : une vidéo en chaussettes de Noël sur le plaid, avec une phrase à l'écran au début" });
+    var ta = el("textarea", { id: "note-text", maxlength: "600", rows: "4", autocomplete: "off", placeholder: "Ex. : une vidéo de pieds sur le plaid avec la guirlande, et une phrase sur le calendrier à l'écran au début" });
     ta.addEventListener("input", function () {
       var cur = S.data.notes[noteDate()], saved = cur ? cur.text : "";
       S.noteDirty = ta.value.replace(/^\s+|\s+$/g, "") !== saved;
@@ -3548,7 +3119,7 @@ function analyzeIdea(text, date) {
     det.push(block("Comment la tourner", steps(a.shoot)));
     if (a.improve.length) { det.push(block("Comment l'améliorer", el("ul", { class: "chg" }, a.improve.map(function (x) { return el("li", { text: x }); })))); }
     det.push(block("Où la publier", para(a.platform)));
-    det.push(el("p", { class: "small", text: "Cette analyse suit des règles simples : les règles du compte (pieds chaussés, aucune vente, anonymat) et ce qui fait rester les gens. Ce n'est pas une prévision de vues." }));
+    det.push(el("p", { class: "small", text: "Cette analyse suit des règles simples : les règles du compte (une partie des pieds, mots codés, ni prix ni lien, anonymat) et ce qui fait rester les gens. Ce n'est pas une prévision de vues." }));
     kids.push(fold("Le détail de l'analyse", det));
 
     if (S.admin) {
