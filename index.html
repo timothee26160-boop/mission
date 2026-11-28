@@ -1884,7 +1884,8 @@ function pushSync(pin) {
   }).then(function () { /* ok */ }, function () { /* silencieux */ });
 }
 function pushUrgent(pin) { return pushPost("/urgent", { pin: pin }); }
-function pushDone(pin, what) { return pushPost("/done", { pin: pin, what: what }); }
+function pushDone(pin, what, all) { return pushPost("/done", { pin: pin, what: what, all: all === true }); }
+function pushStatus(pin, all) { return pushPost("/status", { pin: pin, all: all === true }); }
 function pushTest(pin) { return pushPost("/test", { pin: pin }); }
 
 /* Analyse d'une idée de post, avec des règles simples (pas d'IA, pas de statistiques).
@@ -2508,17 +2509,24 @@ function analyzeIdea(text, date) {
     S.focusKey = task.key;
     var cur = autoStamp(S.data, task.date, task.slot);
     S.store.setAuto(task.date, task.slot, cur ? null : new Date().toISOString());
-    if (!cur) { tellDone((task.kind === "story" ? "Story : " : "Post : ") + titleOfTask(task)); }
+    if (!cur) { tellDone((task.kind === "story" ? "Story : " : "Post : ") + titleOfTask(task)); } else { tellStatus(); }
   }
   function toggleCustom(c) {
     if (needReady()) { return; }
     S.focusKey = "c|" + c.id;
     S.store.patchCustom(c.id, { doneAt: c.doneAt ? null : new Date().toISOString() });
-    if (!c.doneAt) { tellDone("Une demande client"); }
+    if (!c.doneAt) { tellDone("Une demande client"); } else { tellStatus(); }
+  }
+  /* Toute la journée est-elle cochée ? (sert au rappel du soir : inutile si tout est fait) */
+  function dayAllDone() {
+    try { var v = buildToday(S.data, S.today); return S.today >= ANCHOR && v.total > 0 && v.done === v.total; } catch (e) { return false; }
+  }
+  function tellStatus() {
+    try { if (!S.admin && pushCfg()) { var r = pushStatus(readPin(), dayAllDone()); if (r && r.then) { r.then(function () {}, function () {}); } } } catch (e) { /* ignoré */ }
   }
   /* Prévient Timothée (notification) quand Claudia valide quelque chose. Silencieux en cas d'échec. */
   function tellDone(what) {
-    try { if (!S.admin && pushCfg()) { var r = pushDone(readPin(), what); if (r && r.then) { r.then(function () {}, function () {}); } } } catch (e) { /* ignoré */ }
+    try { if (!S.admin && pushCfg()) { var r = pushDone(readPin(), what, dayAllDone()); if (r && r.then) { r.then(function () {}, function () {}); } } } catch (e) { /* ignoré */ }
   }
 
   var copyOk = false;
